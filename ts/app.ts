@@ -10,6 +10,8 @@ namespace WebPackGame
         {
             // Game settings
             super(<Phaser.IGameConfig>{
+                width: 720,
+                height: 1280,
                 enableDebug: false,
                 renderer: Phaser.AUTO,
                 parent: 'content',
