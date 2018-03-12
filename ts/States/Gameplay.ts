@@ -1,45 +1,31 @@
 import 'phaser-ce';
 
-import Images from '../Data/Images';
+//I dont know how most of this works yet haha
 
-export default class Gameplay extends Phaser.State 
-{
+export default class Gameplay extends Phaser.State {
     public static Name: string = 'gameplay';
-
     public name: string = Gameplay.Name;
-
     private _testSprite: Phaser.Sprite;
 
-    constructor() 
-    {
+    constructor() {
         super();
     }
 
-    public preload(): void
-    {
+    public preload(): void{
         super.preload(this.game);
-
-        // This will be replaced with a propper preloader
-        this.game.load.image(Images.IconTest, './assets/sprites/' + Images.IconTest + '.png');
-
+        //console.log("RUNNING GAME");
     }
 
-    public create(): void
-    {
+    public create(): void{
         super.create(this.game);
-
-        this._testSprite = this.game.add.sprite(this.game.width / 2, this.game.height / 2, Images.IconTest);
-        this._testSprite.anchor.set(.5);
-
-
     }
 
-    public shutdown(): void 
-    {
+    public update(): void{
+        super.update(this.game);
+        console.log("RUNNING GAME");
+    }
+
+    public shutdown(): void {
         super.shutdown(this.game);
-
-        this._testSprite.destroy(true);
-        this._testSprite = null;
     }
-
 }
