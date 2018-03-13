@@ -1,6 +1,6 @@
 //this class is going to be a template for the events that are possible
 import iEvent from '../Events/Interface/iEvent';
-class EventTemplate implements iEvent{
+export default class EventTemplate implements iEvent{
     //this will hold the name that the event is known as such as "wolf attack", read from JSON?
     eventName : string;
     //this will hold the image assets relevant to the event
@@ -14,12 +14,12 @@ class EventTemplate implements iEvent{
 
     //initiate the event
     StartEvent():void{
-
+        console.log("Start template Event");
     }
 
     //player has input agressive choice
     AgressiveAction():void{
-
+        console.log("template event agressive action");
     }
 
     //player has input defensive choice

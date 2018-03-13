@@ -1,13 +1,11 @@
 import 'phaser-ce';
-import Test from '../Events/Test'; // this is how you import classes that are marked with "export default"
-
-//I dont know how most of this works yet haha
+import EventTemplate from '../Events/EventTemplate';// this is how you import classes that are marked with "export default"
 
 export default class Gameplay extends Phaser.State {
     public static Name: string = 'gameplay';
     public name: string = Gameplay.Name;
     private _testSprite: Phaser.Sprite;
-    private testClass: Test;    //then you make a variable of the class type
+    private testEvent: EventTemplate;
 
     constructor() {
         super();
@@ -20,14 +18,17 @@ export default class Gameplay extends Phaser.State {
 
     public create(): void{
         super.create(this.game);
-        this.testClass = new Test(); //then you instantiate the class as the variable we made earlier
+        this.testEvent = new EventTemplate();//then you instantiate the class as the variable we made earlier
+
+        this.testEvent.eventName = "Wolf Attack";
+
+        this.testEvent.StartEvent();
+        console.log(this.testEvent.eventName);
     }
 
     public update(): void{
         super.update(this.game);
         console.log("RUNNING GAME");
-        //run test
-        this.testClass.Update();
     }
 
     public shutdown(): void {
