@@ -2,14 +2,14 @@
 import iEvent from '../Events/Interface/iEvent';
 export default class EventTemplate implements iEvent{
     //this will hold the name that the event is known as such as "wolf attack", read from JSON?
-    eventName : string;
+    public eventName : string;
     //this will hold the image assets relevant to the event
-    npcAssets : Phaser.Image;
+    public npcAssets : Phaser.Image;
     //this will hold the relevant JSON for the event, dialogue & maybe image references
-    dialogue : JSON; 
+    public dialogue : JSON; 
 
-    constructor(){
-        //?
+    constructor(name : string = "default"){
+        this.eventName = name;
     }
 
     //initiate the event
@@ -24,11 +24,11 @@ export default class EventTemplate implements iEvent{
 
     //player has input defensive choice
     DefensiveAction():void{
-
+        console.log("template event defensive action");
     }
 
     //player has input passive choice
     PassiveAction():void{
-
+        console.log("template event passive action");
     }
 }

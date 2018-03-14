@@ -35,6 +35,10 @@ export default class TileGenerator{
     public Create():void{
         //create a tile, the string represents what sprite needs to be used
         //currently only one placeholder sprite exists
-        this.nextTile = new Tile(this.gameVar, 'tileSprite');
+        this.currentTile = new Tile(this.gameVar, 'tileSprite', biomes.grass);
+    }
+
+    public GetCurrentTile():Tile{
+        return this.currentTile;
     }
 }
