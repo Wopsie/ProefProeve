@@ -21,6 +21,7 @@ namespace WebPackGame
             });
             this.clearBeforeRender = false;
 
+
             // Add the states here
             this.state.add(Gameplay.Name, Gameplay, false);
 
