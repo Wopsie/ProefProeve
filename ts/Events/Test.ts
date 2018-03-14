@@ -4,7 +4,7 @@ export default class TestClass{
     }
 
     public Update() : void{
-        console.log("Updating test");
+        //console.log("Updating test");
     }
 
 }
