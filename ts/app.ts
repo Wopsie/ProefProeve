@@ -22,6 +22,7 @@ namespace WebPackGame
 
             this.clearBeforeRender = true;
 
+
             // Add the states here
             this.state.add(Gameplay.Name, Gameplay, false);
 
