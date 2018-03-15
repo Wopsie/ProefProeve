@@ -1,5 +1,8 @@
 import iEvent from '../Events/Interface/iEvent';
+import { eventTypes } from './EventGenerator';
+
 export default class WolfAttackEvent implements iEvent{
+    public eventType : eventTypes;
     public eventName : string;
     public npcAssets : Phaser.Image;
     public dialogue : JSON;
