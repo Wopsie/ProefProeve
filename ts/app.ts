@@ -19,7 +19,9 @@ namespace WebPackGame
                 antialias: true,
                 preserveDrawingBuffer: false
             });
-            this.clearBeforeRender = false;
+
+            this.clearBeforeRender = true;
+
 
 
             // Add the states here
