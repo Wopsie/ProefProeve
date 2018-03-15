@@ -12,14 +12,11 @@ export default class Tile extends Phaser.Image{
     constructor(pGame : Phaser.Game, tileArtString : string, biomeType : biomes){
         super(pGame, 0, 0, tileArtString);
         //this puts the sprite on screen
-        pGame.add.sprite(50, 700, tileArtString);
+        pGame.add.sprite(80, 700, tileArtString);
         this.biome = biomeType;
         console.log(this.biome);
 
         this.event = this.MakeEvent();
-        //this.event.AgressiveAction();
-        //this.event.PassiveAction();
-        //this.event.DefensiveAction();
     }
 
     private MakeEvent():iEvent{

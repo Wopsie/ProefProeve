@@ -25,8 +25,6 @@ export default class Gameplay extends Phaser.State {
     public create(): void{
         super.create(this.game);
         
-        //this.testEvent.eventName = "Wolf Attack";
-        //this.testEvent.StartEvent();
         this.tileGenerator.Create();
         this.tileGenerator.GetCurrentTile().event.AgressiveAction();
         console.log(this.tileGenerator.GetCurrentTile().event.eventName);
@@ -34,7 +32,6 @@ export default class Gameplay extends Phaser.State {
 
     public update(): void{
         super.update(this.game);
-        //console.log("RUNNING GAME");
     }
 
     public shutdown(): void {

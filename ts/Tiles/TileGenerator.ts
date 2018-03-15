@@ -17,11 +17,12 @@ export enum biomes{
 };
 
 export default class TileGenerator{
-    private gameVar : Phaser.Game;
+    private gameVar: Phaser.Game;
     private currentTileIdx: number;
     private currentTile: Tile;
     private nextTile: Tile;
     private tileImages: Phaser.Loader[] = [];
+    private tilePropImages: Phaser.Loader[] = [];
 
     constructor(pGame : Phaser.Game){
         //create one tile to come after the titlescreen has passed
@@ -29,16 +30,21 @@ export default class TileGenerator{
     }
 
     public LoadTileAssets():void{
-        this.tileImages.push(this.gameVar.load.image('tileSprite', '../../assets/sprites/Tile.png'));
+        this.tileImages.push(this.gameVar.load.image('forestWalkSprite', '../../assets/sprites/Forest_Walk_Tile.png'));
+        this.tileImages.push(this.gameVar.load.image('forestBGSprite', '../../assets/sprites/Forest_BG_Tile.png'));
+        this.tileImages.push(this.gameVar.load.image('forestToDesertSprite', '../../assets/sprites/Trans_Forest_to_Desert.png'));
+        this.tileImages.push(this.gameVar.load.image('desertToForestSprite', '../../assets/sprites/Trans_Desert_to_Forest.png'));
+        this.tileImages.push(this.gameVar.load.image('desertWalkSprite', '../../assets/sprites/Desert_Walk_Tile.png'));
+        this.tileImages.push(this.gameVar.load.image('desertBGSprite', '../../assets/sprites/Desert_BG_Tile.png'));
     }
     
+    //Create the first tile after the game starts
     public Create():void{
         //create a tile, the string represents what sprite needs to be used
         //currently only one placeholder sprite exists
-        this.currentTile = new Tile(this.gameVar, 'tileSprite', biomes.grass);
+        this.currentTile = new Tile(this.gameVar, 'forestWalkSprite', biomes.forest);
     }
 
-    public GetCurrentTile():Tile{
-        return this.currentTile;
-    }
+    public GetCurrentTile():Tile{ return this.currentTile; }
+    public GetNextTile():Tile{ return this.nextTile; }
 }
