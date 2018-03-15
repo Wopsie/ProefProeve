@@ -8,13 +8,14 @@ export default class EventTemplate implements iEvent{
     //this will hold the relevant JSON for the event, dialogue & maybe image references
     public dialogue : JSON; 
 
-    constructor(name : string = "default"){
+    constructor(name : string = "default event"){
         this.eventName = name;
     }
 
-    //initiate the event
+    //initiate the event... call when new event is ready to start
     StartEvent():void{
         console.log("Start template Event");
+        //start checking for inputs...
     }
 
     //player has input agressive choice

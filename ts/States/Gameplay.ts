@@ -45,8 +45,6 @@ export default class Gameplay extends Phaser.State {
         this.testClass = new Test(); //then you instantiate the class as the variable we made earlier
         this.timer.Create();
         
-        //this.testEvent.eventName = "Wolf Attack";
-        //this.testEvent.StartEvent();
         this.tileGenerator.Create();
         this.tileGenerator.GetCurrentTile().event.AgressiveAction();
         console.log(this.tileGenerator.GetCurrentTile().event.eventName);
