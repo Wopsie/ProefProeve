@@ -3,8 +3,9 @@
 //a max of 2 tiles are in memory at a given time
 import 'phaser-ce';
 import Tile from '../Tiles/Tile';
+import EventGenerator from '../Events/EventGenerator';
 
-export enum biomes{
+export enum Biomes{
     grass,
     forest,
     desert,
@@ -23,12 +24,15 @@ export default class TileGenerator{
     private nextTile: Tile;
     private tileImages: Phaser.Loader[] = [];
     private tilePropImages: Phaser.Loader[] = [];
+    private eventGenerator : EventGenerator;
 
     constructor(pGame : Phaser.Game){
         //create one tile to come after the titlescreen has passed
         this.gameVar = pGame;
+        this.eventGenerator = new EventGenerator(this);
     }
 
+    //load the sprites of the tiles and props related to them
     public LoadTileAssets():void{
         this.tileImages.push(this.gameVar.load.image('forestWalkSprite', '../../assets/sprites/Forest_Walk_Tile.png'));
         this.tileImages.push(this.gameVar.load.image('forestBGSprite', '../../assets/sprites/Forest_BG_Tile.png'));
@@ -42,7 +46,8 @@ export default class TileGenerator{
     public Create():void{
         //create a tile, the string represents what sprite needs to be used
         //currently only one placeholder sprite exists
-        this.currentTile = new Tile(this.gameVar, 'forestWalkSprite', biomes.forest);
+        this.currentTile = new Tile(this.gameVar, 'forestWalkSprite', Biomes.forest);
+        //this.currentTile.event = this.eventGenerator.CreateEvent();
     }
 
     public GetCurrentTile():Tile{ return this.currentTile; }
