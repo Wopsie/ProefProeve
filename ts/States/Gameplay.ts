@@ -3,7 +3,6 @@ import Timer from '../Timer/Timer';
 import AudioManager from '../Audio/AudioManager';
 import EventTemplate from '../Events/EventTemplate';// this is how you import classes that are marked with "export default"
 import TileGenerator from '../Tiles/TileGenerator';
-import EventGenerator from '../Events/EventGenerator';
 export default class Gameplay extends Phaser.State {
     public static Name: string = 'gameplay';
     public name: string = Gameplay.Name;
@@ -15,7 +14,6 @@ export default class Gameplay extends Phaser.State {
     public gameVar : Phaser.Game;
     private testEvent: EventTemplate;
     private tileGenerator: TileGenerator;
-    //private eventGenerator : EventGenerator;
 
     constructor() {
         super();
@@ -31,7 +29,6 @@ export default class Gameplay extends Phaser.State {
         //console.log("RUNNING GAME");
         //instantiate classes
         this.tileGenerator = new TileGenerator(this.game);
-        //this.eventGenerator = new EventGenerator(this.tileGenerator);        
         //call methods that load assets
         this.tileGenerator.LoadTileAssets();
     }

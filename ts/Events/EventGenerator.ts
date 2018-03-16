@@ -30,6 +30,8 @@ export default class EventGenerator{
         //clear array
         this.availableTypes = [];
 
+        this.lastEvent = new EventTemplate("last event");
+
         //store the previous event so it cant be repeated
         //might do this better with an enum later
         if(this.currentEvent != null)
@@ -62,8 +64,8 @@ export default class EventGenerator{
     private selectEvent(options : number[]):iEvent{
         //pick an eventtype from the enum at random index that is present in the options array
         this.selectedEvent = options[Math.floor(Math.random() * options.length)];
-
         console.log(EventTypes[this.selectedEvent]);
+        console.log("Selected event " + EventTypes[this.selectedEvent] + " from " + this.availableTypes.length + " available options");
 
         return new EventTemplate();
     }

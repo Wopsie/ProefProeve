@@ -46,8 +46,8 @@ export default class TileGenerator{
     public Create():void{
         //create a tile, the string represents what sprite needs to be used
         //currently only one placeholder sprite exists
-        this.currentTile = new Tile(this.gameVar, 'forestWalkSprite', Biomes.forest);
-        //this.currentTile.event = this.eventGenerator.CreateEvent();
+        this.currentTile = new Tile(this.gameVar, 'desertWalkSprite', Biomes.mountain);
+        this.currentTile.event = this.eventGenerator.CreateEvent();
     }
 
     public GetCurrentTile():Tile{ return this.currentTile; }
