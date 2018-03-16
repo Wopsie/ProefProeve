@@ -41,14 +41,14 @@ export default class AudioManager extends Phaser.State{
         }
     }
     
-    //add all sound files used in the game here
+    //add all audio files used in the game here
     public LoadInSounds():void{
         this.gameVar.load.audio('1', "assets/audio/1.mp3");
         this.gameVar.load.audio('11', "assets/audio/2.mp3");
         this.gameVar.load.audio('3', "assets/audio/3.mp3");
     }
 
-    //adds and plays the sound deleting the last played sound
+    //adds and plays the music sound deleting the last played sound
     public MusicPlaySounds():void{
         console.log(this.backgroundmusic);
         if(this.backgroundmusic !== undefined){
@@ -60,7 +60,7 @@ export default class AudioManager extends Phaser.State{
         this.backgroundmusic.play();
     }
 
-    //adds and plays the sound deleting the last played sound
+    //adds and plays the sfx audio deleting the last played audio
     public ActionPlaySounds():void{
         console.log(this.backgroundmusic);
         if(this.actionaudio !== undefined){
