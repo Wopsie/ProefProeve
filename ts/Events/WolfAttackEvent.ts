@@ -1,18 +1,19 @@
 import iEvent from '../Events/Interface/iEvent';
+import { EventTypes } from './EventGenerator';
+
 export default class WolfAttackEvent implements iEvent{
+    public eventType : EventTypes;
     public eventName : string;
     public npcAssets : Phaser.Image;
     public dialogue : JSON;
 
     constructor(name : string = "default"){
         this.eventName = name;
-        this.loadEventAssets();
-    }
+        console.log("A WOLF ATTACKS");
+        //this.loadEventAssets();
 
-    private loadEventAssets():void{
-        //reuse as much as possible
-
-        
+        //event assets are loaded into memory by the event generator
+        //to be used by all the events when its done
     }
 
     StartEvent():void{
