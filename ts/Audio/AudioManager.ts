@@ -37,7 +37,6 @@ export default class AudioManager extends Phaser.State{
 
     //adds and plays the sound deleting the last played sound
     public PlaySounds():void{
-        console.log(this.music);
         if(this.music !== undefined){
             this.music.stop();
         }
@@ -69,7 +68,6 @@ export default class AudioManager extends Phaser.State{
                 break;
             }
             default:{
-                console.log("Nope")
             }
         }
     }
