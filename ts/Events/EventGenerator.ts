@@ -1,6 +1,7 @@
 import 'phaser-ce';
 import iEvent from './Interface/iEvent';
 import EventTemplate from '../Events/EventTemplate';
+import EventAssetPack from '../Events/EventAssetPack';
 import TileGenerator, { Biomes } from '../Tiles/TileGenerator';
 
 export enum EventTypes{
@@ -21,6 +22,7 @@ export default class EventGenerator{
     private tileGenerator : TileGenerator;
     private availableTypes : number[];
     private selectedEvent : number;
+    private eventAssets : EventAssetPack[] = [];
 
     constructor(tileGen : TileGenerator){
         this.tileGenerator = tileGen;
@@ -71,8 +73,12 @@ export default class EventGenerator{
     }
 
     //load the spritesheets and sprites of the enemies that can appear in events
-    private LoadEnemyAssets():void{
+    private LoadEventAssets():void{
+        this.gameVar.load.image('wolfEnemy', '../../assets/sprites/WolfEnemy.png');
+        this.gameVar.load.image('condorEnemy', '../../assets/sprites/CondorEnemy.png');
+        
 
+        //this.eventAssets.push(new EventAssetPack(this.gameVar, this.gameVar.load.image('wolf', '../../assets/sprites/WolfEnemy.png').key));
     }
 
 }

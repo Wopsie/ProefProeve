@@ -13,7 +13,7 @@ export default class BearAttackEvent implements iEvent{
     }
 
     StartEvent():void{
-
+        
     }
 
     AgressiveAction():void{
