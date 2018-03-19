@@ -1,8 +1,8 @@
 //this class is going to be a template for the events that are possible
 import iEvent from '../Events/Interface/iEvent';
-import { eventTypes } from './EventGenerator';
+import { EventTypes } from './EventGenerator';
 export default class EventTemplate implements iEvent{
-    public eventType : eventTypes;
+    public eventType : EventTypes;
     //this will hold the name that the event is known as such as "wolf attack", read from JSON?
     public eventName : string;
     //this will hold the image assets relevant to the event
