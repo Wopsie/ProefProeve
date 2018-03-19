@@ -1,13 +1,14 @@
 import 'phaser-ce';
 
 import Images from '../Data/Images';
+import Jsonreader from '../DialogueSystem/Jsonreader';
 
 export default class Gameplay extends Phaser.State 
 {
     public static Name: string = 'gameplay';
 
     public name: string = Gameplay.Name;
-
+    private jsonreader: Jsonreader;
     private _testSprite: Phaser.Sprite;
 
     constructor() 
@@ -30,7 +31,7 @@ export default class Gameplay extends Phaser.State
 
         this._testSprite = this.game.add.sprite(this.game.width / 2, this.game.height / 2, Images.IconTest);
         this._testSprite.anchor.set(.5);
-
+        this.jsonreader.ReadJsonfromfile(this.game);
 
     }
 
