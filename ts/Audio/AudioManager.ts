@@ -25,6 +25,14 @@ export default class AudioManager extends Phaser.State{
         
     }
 
+        //add all audio files used in the game here
+    public LoadInSounds():void{
+        this.gameVar.load.audio('1', "assets/audio/Bos.mp3");
+        this.gameVar.load.audio('2', "assets/audio/Berg.mp3");
+        this.gameVar.load.audio('3', "assets/audio/Woestijn.mp3");
+    }
+    
+
     
     public Update():void{
         if(this.gameVar.input.activePointer.leftButton.isDown == true)
@@ -33,19 +41,12 @@ export default class AudioManager extends Phaser.State{
         }
         if(this.gameVar.input.activePointer.middleButton.isDown == true)
         {
-            this.ActionAudioCase(11);
+            this.MusicSoundCase(2);
         }
         if(this.gameVar.input.activePointer.rightButton.isDown == true)
         {
             this.MusicSoundCase(3);
         }
-    }
-    
-    //add all audio files used in the game here
-    public LoadInSounds():void{
-        this.gameVar.load.audio('1', "assets/audio/1.mp3");
-        this.gameVar.load.audio('11', "assets/audio/2.mp3");
-        this.gameVar.load.audio('3', "assets/audio/3.mp3");
     }
 
     //adds and plays the music sound deleting the last played sound
@@ -57,6 +58,7 @@ export default class AudioManager extends Phaser.State{
         this.MusicSongString = this.MusicSongNumber.toString();
         this.backgroundmusic = this.gameVar.add.audio(this.MusicSongString);
         this.backgroundmusic.volume = 1;
+        this.backgroundmusic.loop = true;
         this.backgroundmusic.play();
     }
 
