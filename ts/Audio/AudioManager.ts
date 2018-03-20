@@ -4,15 +4,14 @@ import Gameplay from '../States/Gameplay';
 
 export default class AudioManager extends Phaser.State{   
 
-    public MusicCaseNumber: number = 1;
-    public MusicSongNumber: number = 1;
-    public MusicSongString: string = '1';
+    public MusicCaseString: String = 'Music';
+    public MusicSongString: string = 'Music';
 
-    public ActionCaseNumber: number = 11;
-    public ActionAudioNumber: number = 11;
-    public ActionAudioString: string = '11';
+    public ActionCaseString: String = 'Action';
+    public ActionAudioString: string = 'Action';
 
     private gameVar : Phaser.Game;
+
     private actionaudio : Phaser.Sound;
     private backgroundmusic : Phaser.Sound;
 
@@ -25,11 +24,11 @@ export default class AudioManager extends Phaser.State{
         
     }
 
-        //add all audio files used in the game here
+    //add all audio files used in the game here
     public LoadInSounds():void{
-        this.gameVar.load.audio('1', "assets/audio/Bos.mp3");
-        this.gameVar.load.audio('2', "assets/audio/Berg.mp3");
-        this.gameVar.load.audio('3', "assets/audio/Woestijn.mp3");
+        this.gameVar.load.audio('Bos', "assets/audio/Bos.mp3");
+        this.gameVar.load.audio('Berg', "assets/audio/Berg.mp3");
+        this.gameVar.load.audio('Woestijn', "assets/audio/Woestijn.mp3");
     }
     
 
@@ -37,15 +36,15 @@ export default class AudioManager extends Phaser.State{
     public Update():void{
         if(this.gameVar.input.activePointer.leftButton.isDown == true)
         {
-            this.MusicSoundCase(1);
+            this.MusicSoundCase('Bos');
         }
         if(this.gameVar.input.activePointer.middleButton.isDown == true)
         {
-            this.MusicSoundCase(2);
+            this.MusicSoundCase('Berg');
         }
         if(this.gameVar.input.activePointer.rightButton.isDown == true)
         {
-            this.MusicSoundCase(3);
+            this.MusicSoundCase('Woestijn');
         }
     }
 
@@ -55,7 +54,6 @@ export default class AudioManager extends Phaser.State{
         if(this.backgroundmusic !== undefined){
             this.backgroundmusic.stop();
         }
-        this.MusicSongString = this.MusicSongNumber.toString();
         this.backgroundmusic = this.gameVar.add.audio(this.MusicSongString);
         this.backgroundmusic.volume = 1;
         this.backgroundmusic.loop = true;
@@ -68,30 +66,29 @@ export default class AudioManager extends Phaser.State{
         if(this.actionaudio !== undefined){
             this.actionaudio.stop();
         }
-        this.ActionAudioString = this.ActionAudioNumber.toString();
         this.actionaudio = this.gameVar.add.audio(this.ActionAudioString);
         this.actionaudio.volume = 1;
         this.actionaudio.play();
     }
 
     //call on this function with a value to play that background song
-    public MusicSoundCase(PlayNumber:Number):void{
-        this.MusicCaseNumber = PlayNumber.valueOf();
+    public MusicSoundCase(PlayString:String):void{
+        this.MusicCaseString = PlayString.toString();
 
-        switch(this.MusicCaseNumber)
+        switch(this.MusicCaseString)
         {
-            case 1:{
-                this.MusicSongNumber = this.MusicCaseNumber;
+            case 'Bos':{
+                this.MusicSongString = this.MusicCaseString.toString();
                 this.MusicPlaySounds();
                 break;
             }
-            case 2:{
-                this.MusicSongNumber = this.MusicCaseNumber;
+            case 'Berg':{
+                this.MusicSongString = this.MusicCaseString.toString();
                 this.MusicPlaySounds();
                 break;
             }
-            case 3:{
-                this.MusicSongNumber = this.MusicCaseNumber;
+            case 'Woestijn':{
+                this.MusicSongString = this.MusicCaseString.toString();
                 this.MusicPlaySounds();
                 break;
             }
@@ -102,23 +99,23 @@ export default class AudioManager extends Phaser.State{
     }
 
     //call on this function with a value to play that Audio
-    public ActionAudioCase(PlayNumber:Number):void{
-        this.ActionCaseNumber = PlayNumber.valueOf();
+    public ActionAudioCase(PlayString:String):void{
+        this.ActionCaseString = PlayString.valueOf();
 
-        switch(this.ActionCaseNumber)
+        switch(this.ActionCaseString)
         {
-            case 11:{
-                this.ActionAudioNumber = this.ActionCaseNumber;
+            case 'Attack':{
+                this.ActionAudioString = this.ActionCaseString.toString();
                 this.ActionPlaySounds();
                 break;
             }
-            case 12:{
-                this.ActionAudioNumber = this.ActionCaseNumber;
+            case 'Defend':{
+                this.ActionAudioString = this.ActionCaseString.toString();
                 this.ActionPlaySounds();
                 break;
             }
-            case 13:{
-                this.ActionAudioNumber = this.ActionCaseNumber;
+            case 'Passive':{
+                this.ActionAudioString = this.ActionCaseString.toString();
                 this.ActionPlaySounds();
                 break;
             }
