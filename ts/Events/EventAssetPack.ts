@@ -9,7 +9,5 @@ export default class EventAssetPack extends Phaser.Image{
 
     constructor(pGame : Phaser.Game, assetStrings : string[]){
         super(pGame, 0,0, assetStrings[0]);
-    
-
     }
 }
