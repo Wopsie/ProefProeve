@@ -50,7 +50,6 @@ export default class AudioManager extends Phaser.State{
 
     //adds and plays the music sound deleting the last played sound
     public MusicPlaySounds():void{
-        console.log(this.backgroundmusic);
         if(this.backgroundmusic !== undefined){
             this.backgroundmusic.stop();
         }

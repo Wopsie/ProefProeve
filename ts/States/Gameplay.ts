@@ -40,6 +40,7 @@ export default class Gameplay extends Phaser.State {
         super.create(this.game);
         this.timer.Create();
         this.tileGenerator.Create();
+
         this.UiSprites.create();
         //this.tileGenerator.GetCurrentTile().event.AgressiveAction();
         //console.log(this.tileGenerator.GetCurrentTile().event.eventName);
