@@ -37,7 +37,7 @@ export default class Gameplay extends Phaser.State {
         //console.log("RUNNING GAME");
         //instantiate classes
         this.tileGenerator = new TileGenerator(this.game);
-        this.UiSprites = new UiSprites(this.game);
+        this.UiSprites = new UiSprites(this.game, this.tileGenerator);
         //call methods that load assets
         this.tileGenerator.LoadTileAssets();
     }

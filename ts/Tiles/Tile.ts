@@ -9,20 +9,16 @@ export default class Tile extends Phaser.Image{
     public biome : Biomes;
     public event : iEvent;
 
-    constructor(pGame : Phaser.Game, /*tileArtString : string,*/ biomeType : Biomes){
-
+    constructor(pGame : Phaser.Game, biomeType : Biomes){
         let tileArt;
         switch(biomeType){
             case 0:
                 tileArt = "forestWalkSprite";
                 break;
             case 1:
-                tileArt = "forestWalkSprite";
-                break;
-            case 2:
                 tileArt = "desertWalkSprite";
                 break;
-            case 3:
+            case 2:
                 tileArt = "mountainWalkSprite";
                 break;
         }
@@ -33,23 +29,4 @@ export default class Tile extends Phaser.Image{
         this.biome = biomeType;
         console.log(this.biome);
     }
-
-    /*
-    private SelectTileArt(b : Biomes):string{
-        switch(b){
-            case 0:
-                return "forestWalkSprite";
-                break;
-            case 1:
-                return "forestWalkSprite";
-                break;
-            case 2:
-                return "desertWalkSprite";
-                break;
-            case 3:
-                return "mountainWalkSprite";
-                break;
-        }
-    }
-    */
 }

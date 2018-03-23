@@ -1,18 +1,27 @@
 import 'phaser-ce';
 import iEvent from './Interface/iEvent';
 import EventTemplate from '../Events/EventTemplate';
-import EventAssetPack from '../Events/EventAssetPack';
+import WolfAttackEvent from '../Events/WolfAttackEvent';
+import CondorAttackEvent from '../Events/CondorAttackEvent';
+import BearAttackEvent from '../Events/BearAttackEvent';
+import TrollAttackEvent from '../Events/TrollAttackEvent';
+import QuicksandEvent from '../Events/QuicksandEvent';
+import AvalangeEvent from '../Events/AvalangeEvent';
+import LightningStormEvent from '../Events/LightningStormEvent';
+import SandstormEvent from '../Events/SandStormEvent';
+import NarrowPathEvent from '../Events/NarrowPathEvent';
 import TileGenerator, { Biomes } from '../Tiles/TileGenerator';
 
 export enum EventTypes{
     wolfAttack = 0,     //forest
     condorAttack = 1,   //desert
-    bearAttack = 2,     //whatever
+    bearAttack = 2,     //forest
     trollAttack = 3,    //mountains
     quickSand = 4,      //desert
     avalange = 5,       //mountains
     lightningStorm = 6, //forest
     sandStorm = 7,      //desert
+    narrowPath = 8,     //mountain
 };
 
 export default class EventGenerator{
@@ -22,7 +31,6 @@ export default class EventGenerator{
     private tileGenerator : TileGenerator;
     private availableTypes : number[];
     private selectedEvent : number;
-    private eventAssets : EventAssetPack[] = [];
 
     constructor(tileGen : TileGenerator){
         this.tileGenerator = tileGen;
@@ -56,7 +64,7 @@ export default class EventGenerator{
             case Biomes.mountain:
                 if(this.lastEvent.eventType != EventTypes.trollAttack) this.availableTypes.push(EventTypes.trollAttack);
                 if(this.lastEvent.eventType != EventTypes.avalange) this.availableTypes.push(EventTypes.avalange);
-                if(this.lastEvent.eventType != EventTypes.lightningStorm) this.availableTypes.push(EventTypes.lightningStorm);
+                if(this.lastEvent.eventType != EventTypes.narrowPath) this.availableTypes.push(EventTypes.narrowPath);
                 break;
         }
 
@@ -69,16 +77,31 @@ export default class EventGenerator{
         console.log(EventTypes[this.selectedEvent]);
         console.log("Selected event " + EventTypes[this.selectedEvent] + " from " + this.availableTypes.length + " available options");
 
-        return new EventTemplate();
+        switch(this.selectedEvent){
+            case 0:
+                return new WolfAttackEvent();
+            case 1:
+                return new CondorAttackEvent();
+            case 2:
+                return new BearAttackEvent();
+            case 3:
+                return new TrollAttackEvent();
+            case 4:
+                return new QuicksandEvent();
+            case 5:
+                return new AvalangeEvent();
+            case 6: 
+                return new LightningStormEvent();
+            case 7:
+                return new SandstormEvent();
+            case 8:
+                return new NarrowPathEvent();
+        }
     }
 
     //load the spritesheets and sprites of the enemies that can appear in events
     private LoadEventAssets():void{
         this.gameVar.load.image('wolfEnemy', '../../assets/sprites/WolfEnemy.png');
         this.gameVar.load.image('condorEnemy', '../../assets/sprites/CondorEnemy.png');
-        
-
-        //this.eventAssets.push(new EventAssetPack(this.gameVar, this.gameVar.load.image('wolf', '../../assets/sprites/WolfEnemy.png').key));
     }
-
 }
