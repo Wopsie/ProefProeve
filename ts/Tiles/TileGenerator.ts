@@ -46,8 +46,7 @@ export default class TileGenerator{
     
     //Create the first tile after the game starts
     public Create():void{
-        //create a tile, the string represents what sprite needs to be used
-        //currently only one placeholder sprite exists
+        //create the very first tile that gets shown
         this.currentTile = new Tile(this.gameVar, Biomes.mountain);
         this.currentTile.event = this.eventGenerator.CreateEvent();
     }

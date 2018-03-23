@@ -7,7 +7,7 @@ export default class AvalangeEvent implements iEvent{
     public npcAssets : Phaser.Image;
     public dialogue : JSON;
 
-    constructor(name : string = "default"){
+    constructor(name : string = "Avalange"){
         this.eventName = name;
         console.log("AVALANGE");
         //this.loadEventAssets();
@@ -21,14 +21,16 @@ export default class AvalangeEvent implements iEvent{
     }
 
     AgressiveAction():void{
-
+        console.log(this.eventName + " agressive action");
     }
 
     DefensiveAction():void{
+        console.log(this.eventName + " defensive action");
 
     }
 
     PassiveAction():void{
+        console.log(this.eventName + " avoid action");
 
     }
 }

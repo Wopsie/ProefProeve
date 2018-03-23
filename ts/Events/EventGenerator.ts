@@ -1,7 +1,6 @@
 import 'phaser-ce';
 import iEvent from './Interface/iEvent';
 import EventTemplate from '../Events/EventTemplate';
-import EventAssetPack from '../Events/EventAssetPack';
 import WolfAttackEvent from '../Events/WolfAttackEvent';
 import CondorAttackEvent from '../Events/CondorAttackEvent';
 import BearAttackEvent from '../Events/BearAttackEvent';
@@ -32,7 +31,6 @@ export default class EventGenerator{
     private tileGenerator : TileGenerator;
     private availableTypes : number[];
     private selectedEvent : number;
-    private eventAssets : EventAssetPack[] = [];
 
     constructor(tileGen : TileGenerator){
         this.tileGenerator = tileGen;
@@ -105,9 +103,5 @@ export default class EventGenerator{
     private LoadEventAssets():void{
         this.gameVar.load.image('wolfEnemy', '../../assets/sprites/WolfEnemy.png');
         this.gameVar.load.image('condorEnemy', '../../assets/sprites/CondorEnemy.png');
-        
-
-        //this.eventAssets.push(new EventAssetPack(this.gameVar, this.gameVar.load.image('wolf', '../../assets/sprites/WolfEnemy.png').key));
     }
-
 }

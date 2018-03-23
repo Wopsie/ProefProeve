@@ -7,7 +7,7 @@ export default class NarrowPathEvent implements iEvent{
     public npcAssets : Phaser.Image;
     public dialogue : JSON;
 
-    constructor(name : string = "default"){
+    constructor(name : string = "Narrow path"){
         this.eventName = name;
         console.log("NARROW PATH");
         //this.loadEventAssets();
@@ -21,14 +21,17 @@ export default class NarrowPathEvent implements iEvent{
     }
 
     AgressiveAction():void{
+        console.log(this.eventName + " agressive action");
 
     }
 
     DefensiveAction():void{
+        console.log(this.eventName + " defensive action");
 
     }
 
     PassiveAction():void{
+        console.log(this.eventName + " avoid action");
 
     }
 }
