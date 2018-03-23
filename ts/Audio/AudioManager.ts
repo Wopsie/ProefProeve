@@ -4,11 +4,16 @@ import Gameplay from '../States/Gameplay';
 
 export default class AudioManager extends Phaser.State{   
 
-    public CaseNumber: number = 1;
-    public SongNumberInt: number = 3;
-    public SongNumberString: string = '3';
+    public MusicCaseString: String = 'Music';
+    public MusicSongString: string = 'Music';
+
+    public ActionCaseString: String = 'Action';
+    public ActionAudioString: string = 'Action';
+
     private gameVar : Phaser.Game;
-    private music : Phaser.Sound;
+
+    private actionaudio : Phaser.Sound;
+    private backgroundmusic : Phaser.Sound;
 
     constructor() {
         super();
@@ -19,55 +24,102 @@ export default class AudioManager extends Phaser.State{
         
     }
 
+    //add all audio files used in the game here
+    public LoadInSounds():void{
+        this.gameVar.load.audio('Bos', "assets/audio/Bos.mp3");
+        this.gameVar.load.audio('Berg', "assets/audio/Berg.mp3");
+        this.gameVar.load.audio('Woestijn', "assets/audio/Woestijn.mp3");
+    }
+    
+
     
     public Update():void{
         if(this.gameVar.input.activePointer.leftButton.isDown == true)
         {
-
-            this.SoundCase(2);
+            this.MusicSoundCase('Bos');
         }
-    }
-    
-    //add all sound files used in the game here
-    public LoadInSounds():void{
-        this.gameVar.load.audio('1', "assets/audio/1.mp3");
-        this.gameVar.load.audio('2', "assets/audio/2.mp3");
-        this.gameVar.load.audio('3', "assets/audio/3.mp3");
-    }
-
-    //adds and plays the sound deleting the last played sound
-    public PlaySounds():void{
-        if(this.music !== undefined){
-            this.music.stop();
-        }
-        this.SongNumberString = this.SongNumberInt.toString();
-        this.music = this.gameVar.add.audio(this.SongNumberString);
-        this.music.volume = 1;
-        this.music.play();
-    }
-
-    //call on this function with a value to play that song
-    public SoundCase(PlayNumber:Number):void{
-        this.CaseNumber = PlayNumber.valueOf();
-
-        switch(this.CaseNumber)
+        if(this.gameVar.input.activePointer.middleButton.isDown == true)
         {
-            case 1:{
-                this.SongNumberInt = this.CaseNumber;
-                this.PlaySounds();
+            this.MusicSoundCase('Berg');
+        }
+        if(this.gameVar.input.activePointer.rightButton.isDown == true)
+        {
+            this.MusicSoundCase('Woestijn');
+        }
+    }
+
+    //adds and plays the music sound deleting the last played sound
+    public MusicPlaySounds():void{
+        if(this.backgroundmusic !== undefined){
+            this.backgroundmusic.stop();
+        }
+        this.backgroundmusic = this.gameVar.add.audio(this.MusicSongString);
+        this.backgroundmusic.volume = 1;
+        this.backgroundmusic.loop = true;
+        this.backgroundmusic.play();
+    }
+
+    //adds and plays the sfx audio deleting the last played audio
+    public ActionPlaySounds():void{
+        console.log(this.backgroundmusic);
+        if(this.actionaudio !== undefined){
+            this.actionaudio.stop();
+        }
+        this.actionaudio = this.gameVar.add.audio(this.ActionAudioString);
+        this.actionaudio.volume = 1;
+        this.actionaudio.play();
+    }
+
+    //call on this function with a value to play that background song
+    public MusicSoundCase(PlayString:String):void{
+        this.MusicCaseString = PlayString.toString();
+
+        switch(this.MusicCaseString)
+        {
+            case 'Bos':{
+                this.MusicSongString = this.MusicCaseString.toString();
+                this.MusicPlaySounds();
                 break;
             }
-            case 2:{
-                this.SongNumberInt = this.CaseNumber;
-                this.PlaySounds();
+            case 'Berg':{
+                this.MusicSongString = this.MusicCaseString.toString();
+                this.MusicPlaySounds();
                 break;
             }
-            case 3:{
-                this.SongNumberInt = this.CaseNumber;
-                this.PlaySounds();
+            case 'Woestijn':{
+                this.MusicSongString = this.MusicCaseString.toString();
+                this.MusicPlaySounds();
                 break;
             }
             default:{
+                console.log("Nope")
+            }
+        }
+    }
+
+    //call on this function with a value to play that Audio
+    public ActionAudioCase(PlayString:String):void{
+        this.ActionCaseString = PlayString.valueOf();
+
+        switch(this.ActionCaseString)
+        {
+            case 'Attack':{
+                this.ActionAudioString = this.ActionCaseString.toString();
+                this.ActionPlaySounds();
+                break;
+            }
+            case 'Defend':{
+                this.ActionAudioString = this.ActionCaseString.toString();
+                this.ActionPlaySounds();
+                break;
+            }
+            case 'Passive':{
+                this.ActionAudioString = this.ActionCaseString.toString();
+                this.ActionPlaySounds();
+                break;
+            }
+            default:{
+                console.log("Nope")
             }
         }
     }

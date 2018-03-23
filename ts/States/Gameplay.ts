@@ -3,6 +3,7 @@ import Timer from '../Timer/Timer';
 import AudioManager from '../Audio/AudioManager';
 import EventTemplate from '../Events/EventTemplate';// this is how you import classes that are marked with "export default"
 import TileGenerator from '../Tiles/TileGenerator';
+import UiSprites from '../Events/Interface/UiSprites'
 export default class Gameplay extends Phaser.State {
     public static Name: string = 'gameplay';
     public name: string = Gameplay.Name;
@@ -14,6 +15,7 @@ export default class Gameplay extends Phaser.State {
     public gameVar : Phaser.Game;
     private testEvent: EventTemplate;
     private tileGenerator: TileGenerator;
+    private UiSprites : UiSprites;
 
     private GAME_WIDTH : number = 720;
     private GAME_HEIGHT : number = 1280;
@@ -32,6 +34,7 @@ export default class Gameplay extends Phaser.State {
         //console.log("RUNNING GAME");
         //instantiate classes
         this.tileGenerator = new TileGenerator(this.game);
+        this.UiSprites = new UiSprites(this.game);
         //call methods that load assets
         this.tileGenerator.LoadTileAssets();
     }
@@ -39,8 +42,9 @@ export default class Gameplay extends Phaser.State {
     public create(): void{
         super.create(this.game);
         this.timer.Create();
-        
         this.tileGenerator.Create();
+
+        this.UiSprites.create();
         //this.tileGenerator.GetCurrentTile().event.AgressiveAction();
         //console.log(this.tileGenerator.GetCurrentTile().event.eventName);
         //this.eventGenerator.CreateEvent();
