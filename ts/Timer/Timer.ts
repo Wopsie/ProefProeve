@@ -7,8 +7,6 @@ export default class Timer
     sprite: Phaser.Sprite;
     private anim: Animantions;
     public game: Phaser.Game;
-    private timeElapsed: number;
-    private waitTime: number;
 
     constructor(game: Phaser.Game)
     {
@@ -20,13 +18,10 @@ export default class Timer
     }
 
     public Create(): void {
-        this.anim.Create(0.25,'timer',585,-50);
-        this.anim.Create(1,'condor',0,0,1,3);
+        this.anim.Create('timer',0.25,585,-50);
+        this.anim.Create('condor',1,0,0,1,3);
         this.anim.Play('timer',24,true);
         this.anim.Play('condor',3,true);
-    }
-
-    public Update():void {   
     }
 
     public StopWatch(ms: number): void {
