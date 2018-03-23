@@ -61,7 +61,7 @@ export default class AudioManager extends Phaser.State{
 
     //adds and plays the sfx audio deleting the last played audio
     public ActionPlaySounds():void{
-        console.log(this.backgroundmusic);
+        //console.log(this.backgroundmusic);
         if(this.actionaudio !== undefined){
             this.actionaudio.stop();
         }
