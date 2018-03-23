@@ -3,9 +3,10 @@
 //a max of 2 tiles are in memory at a given time
 import 'phaser-ce';
 import Tile from '../Tiles/Tile';
+import EventGenerator from '../Events/EventGenerator';
 
-export enum biomes{
-    grass,
+export enum Biomes{
+    grass = 0,
     forest,
     desert,
     mountain,
@@ -23,12 +24,15 @@ export default class TileGenerator{
     private nextTile: Tile;
     private tileImages: Phaser.Loader[] = [];
     private tilePropImages: Phaser.Loader[] = [];
+    private eventGenerator : EventGenerator;
 
     constructor(pGame : Phaser.Game){
         //create one tile to come after the titlescreen has passed
         this.gameVar = pGame;
+        this.eventGenerator = new EventGenerator(this);
     }
 
+    //load the sprites of the tiles and props related to them
     public LoadTileAssets():void{
         this.tileImages.push(this.gameVar.load.image('forestWalkSprite', '../../assets/sprites/Forest_Walk_Tile.png'));
         this.tileImages.push(this.gameVar.load.image('forestBGSprite', '../../assets/sprites/Forest_BG_Tile.png'));
@@ -36,13 +40,20 @@ export default class TileGenerator{
         this.tileImages.push(this.gameVar.load.image('desertToForestSprite', '../../assets/sprites/Trans_Desert_to_Forest.png'));
         this.tileImages.push(this.gameVar.load.image('desertWalkSprite', '../../assets/sprites/Desert_Walk_Tile.png'));
         this.tileImages.push(this.gameVar.load.image('desertBGSprite', '../../assets/sprites/Desert_BG_Tile.png'));
+        this.tileImages.push(this.gameVar.load.image('mountainWalkSprite', '../../assets/sprites/Mountain_Walk_Tile.png'));
+        this.tileImages.push(this.gameVar.load.image('mountainBGSprite', '../../assets/sprites/Mountain_BG_Tile.png'));
+        this.tileImages.push(this.gameVar.load.image('MountainToForestSprite', '../../assets/sprites/Trans_Mountain_to_Forest.png'));
+        this.tileImages.push(this.gameVar.load.image('ForestToMountainSprite', '../../assets/sprites/Trans_Forest_to_Mountain.png'));
+        this.tileImages.push(this.gameVar.load.image('DesertToMountainSprite', '../../assets/sprites/Trans_Desert_to_Mountain.png'));
+        this.tileImages.push(this.gameVar.load.image('MountainToDesertSprite', '../../assets/sprites/Trans_Mountain_to_Desert.png'));
     }
     
     //Create the first tile after the game starts
     public Create():void{
         //create a tile, the string represents what sprite needs to be used
         //currently only one placeholder sprite exists
-        this.currentTile = new Tile(this.gameVar, 'forestWalkSprite', biomes.forest);
+        this.currentTile = new Tile(this.gameVar, Biomes.mountain);
+        this.currentTile.event = this.eventGenerator.CreateEvent();
     }
 
     public GetCurrentTile():Tile{ return this.currentTile; }

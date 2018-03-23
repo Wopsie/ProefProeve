@@ -1,17 +1,12 @@
 import 'phaser-ce';
-import Test from '../Events/Test'; // this is how you import classes that are marked with "export default"
 import Timer from '../Timer/Timer';
 import AudioManager from '../Audio/AudioManager';
-
-//I dont know how most of this works yet haha
-
 import EventTemplate from '../Events/EventTemplate';// this is how you import classes that are marked with "export default"
 import TileGenerator from '../Tiles/TileGenerator';
 export default class Gameplay extends Phaser.State {
     public static Name: string = 'gameplay';
     public name: string = Gameplay.Name;
     private _testSprite: Phaser.Sprite;
-    private testClass: Test;    //then you make a variable of the class type
     private timer: Timer;
     //private playerAnim : Animation;
     private audioManager: AudioManager;
@@ -19,6 +14,9 @@ export default class Gameplay extends Phaser.State {
     public gameVar : Phaser.Game;
     private testEvent: EventTemplate;
     private tileGenerator: TileGenerator;
+
+    private GAME_WIDTH : number = 720;
+    private GAME_HEIGHT : number = 1280;
 
     constructor() {
         super();
@@ -34,25 +32,22 @@ export default class Gameplay extends Phaser.State {
         //console.log("RUNNING GAME");
         //instantiate classes
         this.tileGenerator = new TileGenerator(this.game);
-        //this.testEvent = new EventTemplate();//then you instantiate the class as the variable we made earlier
-        
         //call methods that load assets
         this.tileGenerator.LoadTileAssets();
     }
     
     public create(): void{
         super.create(this.game);
-        this.testClass = new Test(); //then you instantiate the class as the variable we made earlier
         this.timer.Create();
         
         this.tileGenerator.Create();
-        this.tileGenerator.GetCurrentTile().event.AgressiveAction();
-        console.log(this.tileGenerator.GetCurrentTile().event.eventName);
+        //this.tileGenerator.GetCurrentTile().event.AgressiveAction();
+        //console.log(this.tileGenerator.GetCurrentTile().event.eventName);
+        //this.eventGenerator.CreateEvent();
     }
 
     public update(): void{
         super.update(this.game);
-        this.testClass.Update();
         this.timer.Update();
         this.audioManager.Update();
         //console.log("RUNNING GAME");
@@ -60,5 +55,80 @@ export default class Gameplay extends Phaser.State {
 
     public shutdown(): void {
         super.shutdown(this.game);
+    }
+
+    public init(): void
+    {
+        if (this.game.device.desktop) {
+
+            this.scale.pageAlignHorizontally = true;
+            this.scale.windowConstraints.bottom = 'visual';
+
+            this.game.onBlur.add(() => {
+                this.game.sound.mute = true;
+            });
+            this.game.onFocus.add(() => {
+                this.game.sound.mute = false;
+            });
+            window.addEventListener('resize', () => {
+                this.scaleCanvasContain();
+            });
+            this.scaleCanvasContain();
+} else {
+            let rotateScreen: any = document.getElementById('rotateWarning');
+            rotateScreen.classList.add('rotateWarning');
+            this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
+            this.scale.fullScreenScaleMode = Phaser.ScaleManager.USER_SCALE;
+
+            window.addEventListener('resize', () => {
+                Gameplay.mobileResizeCallback(this.game.scale);
+            });
+            Gameplay.mobileResizeCallback(this.game.scale);
+            this.game.scale.onSizeChange.add(
+                () => {
+                    this.game.state.getCurrentState().resize(window.innerWidth, window.innerHeight);
+                },
+                this
+            );
+        }
+        //input pointers limited to 1
+        this.game.input.maxPointers = 1;
+
+        //Disable contextual menu
+        this.game.canvas.oncontextmenu = function (e: Event): void {
+            e.preventDefault();
+        };
+    }
+    private scaleCanvasContain(): void {
+        if (window.innerHeight / window.innerWidth > this.GAME_HEIGHT / this.GAME_WIDTH) {
+            this.scale.maxHeight = window.innerWidth * (this.GAME_HEIGHT / this.GAME_WIDTH);
+            this.scale.maxWidth = window.innerWidth;
+        } else {
+            this.scale.maxHeight = window.innerHeight;
+            this.scale.maxWidth = window.innerHeight / (this.GAME_HEIGHT / this.GAME_WIDTH);
+        }
+    }
+
+    public static mobileResizeCallback(manager: Phaser.ScaleManager): void {
+        let width: number = window.innerWidth;
+        let height: number = window.innerHeight;
+
+        let usedWidth: number = 720;
+        let usedHeight: number = 1280;
+
+        let scaleFactor: number = 1;
+
+        //So first we check if the game is beeing played in landscape
+        if (width > height) {
+            scaleFactor /= width / usedHeight;
+        } else {
+            scaleFactor /= height / usedWidth;
+        }
+
+        let CALCULATED_WIDTH: number = Math.ceil(width * scaleFactor);
+        let CALCULATED_HEIGHT: number = Math.ceil(height * scaleFactor);
+
+        manager.setGameSize(CALCULATED_WIDTH, CALCULATED_HEIGHT);
+        manager.setUserScale(1 / scaleFactor, 1 / scaleFactor);
     }
 }

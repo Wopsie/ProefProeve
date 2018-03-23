@@ -4,17 +4,11 @@ import Gameplay from '../States/Gameplay';
 
 export default class AudioManager extends Phaser.State{   
 
-    public MusicCaseNumber: number = 1;
-    public MusicSongNumber: number = 1;
-    public MusicSongString: string = '1';
-
-    public ActionCaseNumber: number = 11;
-    public ActionAudioNumber: number = 11;
-    public ActionAudioString: string = '11';
-
+    public CaseNumber: number = 1;
+    public SongNumberInt: number = 3;
+    public SongNumberString: string = '3';
     private gameVar : Phaser.Game;
-    private actionaudio : Phaser.Sound;
-    private backgroundmusic : Phaser.Sound;
+    private music : Phaser.Sound;
 
     constructor() {
         super();
@@ -29,99 +23,51 @@ export default class AudioManager extends Phaser.State{
     public Update():void{
         if(this.gameVar.input.activePointer.leftButton.isDown == true)
         {
-            this.MusicSoundCase(1);
-        }
-        if(this.gameVar.input.activePointer.middleButton.isDown == true)
-        {
-            this.ActionAudioCase(11);
-        }
-        if(this.gameVar.input.activePointer.rightButton.isDown == true)
-        {
-            this.MusicSoundCase(3);
+
+            this.SoundCase(2);
         }
     }
     
     //add all sound files used in the game here
     public LoadInSounds():void{
         this.gameVar.load.audio('1', "assets/audio/1.mp3");
-        this.gameVar.load.audio('11', "assets/audio/2.mp3");
+        this.gameVar.load.audio('2', "assets/audio/2.mp3");
         this.gameVar.load.audio('3', "assets/audio/3.mp3");
     }
 
     //adds and plays the sound deleting the last played sound
-    public MusicPlaySounds():void{
-        console.log(this.backgroundmusic);
-        if(this.backgroundmusic !== undefined){
-            this.backgroundmusic.stop();
+    public PlaySounds():void{
+        if(this.music !== undefined){
+            this.music.stop();
         }
-        this.MusicSongString = this.MusicSongNumber.toString();
-        this.backgroundmusic = this.gameVar.add.audio(this.MusicSongString);
-        this.backgroundmusic.volume = 1;
-        this.backgroundmusic.play();
+        this.SongNumberString = this.SongNumberInt.toString();
+        this.music = this.gameVar.add.audio(this.SongNumberString);
+        this.music.volume = 1;
+        this.music.play();
     }
 
-    //adds and plays the sound deleting the last played sound
-    public ActionPlaySounds():void{
-        console.log(this.backgroundmusic);
-        if(this.actionaudio !== undefined){
-            this.actionaudio.stop();
-        }
-        this.ActionAudioString = this.ActionAudioNumber.toString();
-        this.actionaudio = this.gameVar.add.audio(this.ActionAudioString);
-        this.actionaudio.volume = 1;
-        this.actionaudio.play();
-    }
+    //call on this function with a value to play that song
+    public SoundCase(PlayNumber:Number):void{
+        this.CaseNumber = PlayNumber.valueOf();
 
-    //call on this function with a value to play that background song
-    public MusicSoundCase(PlayNumber:Number):void{
-        this.MusicCaseNumber = PlayNumber.valueOf();
-
-        switch(this.MusicCaseNumber)
+        switch(this.CaseNumber)
         {
             case 1:{
-                this.MusicSongNumber = this.MusicCaseNumber;
-                this.MusicPlaySounds();
+                this.SongNumberInt = this.CaseNumber;
+                this.PlaySounds();
                 break;
             }
             case 2:{
-                this.MusicSongNumber = this.MusicCaseNumber;
-                this.MusicPlaySounds();
+                this.SongNumberInt = this.CaseNumber;
+                this.PlaySounds();
                 break;
             }
             case 3:{
-                this.MusicSongNumber = this.MusicCaseNumber;
-                this.MusicPlaySounds();
+                this.SongNumberInt = this.CaseNumber;
+                this.PlaySounds();
                 break;
             }
             default:{
-                console.log("Nope")
-            }
-        }
-    }
-
-    //call on this function with a value to play that Audio
-    public ActionAudioCase(PlayNumber:Number):void{
-        this.ActionCaseNumber = PlayNumber.valueOf();
-
-        switch(this.ActionCaseNumber)
-        {
-            case 11:{
-                this.ActionAudioNumber = this.ActionCaseNumber;
-                this.ActionPlaySounds();
-                break;
-            }
-            case 12:{
-                this.ActionAudioNumber = this.ActionCaseNumber;
-                this.ActionPlaySounds();
-                break;
-            }
-            case 13:{
-                this.ActionAudioNumber = this.ActionCaseNumber;
-                this.ActionPlaySounds();
-                break;
-            }
-            default:{
-                console.log("Nope")
             }
         }
     }

@@ -2,7 +2,7 @@ import 'phaser-ce';
 import Animantions from "../Animations/Animations";
 import { Sprite } from 'phaser-ce';
 
-export default class Clock
+export default class Timer
 {
     sprite: Phaser.Sprite;
     private anim: Animantions;
@@ -11,35 +11,19 @@ export default class Clock
     constructor(game: Phaser.Game)
     {
         this.game = game;
-        //this.anim = new Animantions(this.game,'timer','../../assets/sprites/spritesheet_Timer.png',545,965,24);
-
-        game.load.spritesheet('timer', '../../assets/sprites/spritesheet_Timer.png', 545,965,24);
+        this.anim = new Animantions(this.game);
+        this.anim.LoadSpritesheet('timer','assets/sprites/spritesheet_Timer.png',545,965,24);
+        this.anim.LoadSpritesheet('hero','assets/sprites/spritesheet_hero_front.png',386,423,2);
     }
 
-    public Create(): void
-    {
-        this.sprite = this.game.add.sprite(24, 0, 'timer');
-        this.sprite.animations.add('timer');
-
-        this.sprite.animations.play('timer', 24,true,false);
-
-        //this.sprite.visible = false;
-        //this.anim.Create(0,0,0.5,'timer');
-        //this.anim.Play('timer',24,false,true);
-        //this.anim.Stop('timer',true);
+    public Create(): void {
+        this.anim.Create(0,590,-50,0.25,'timer');
+        this.anim.Create(1,50,50,1,'hero');
+        this.anim.Play('timer',24,true,false,5);
+        this.anim.Play('hero',2,true,false,10);
     }
 
-    public Update():void{
-        //console.log(this.sprite.animations.currentFrame.index);
-        if(this.sprite.animations.currentFrame.index == 23){
-           // this.sprite.animations.play('timer', 24,false,true);
-           //this.sprite.animations.getAnimation('timer').destroy();
-           //this.sprite.animations.destroy();
-           console.log("STOP NOU");
-           
-           this.sprite.animations.stop();
-            this.sprite.visible = false;
-        }
-        
+    public Update():void { 
+        this.anim.Update();       
     }
 }
