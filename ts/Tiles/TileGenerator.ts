@@ -7,15 +7,9 @@ import EventGenerator from '../Events/EventGenerator';
 import { Math } from 'phaser-ce';
 
 export enum Biomes{
-    grass = 0,
-    forest,
+    forest = 0,
     desert,
     mountain,
-    tundra,
-    snowMountain,
-    volcano,
-    cave,
-    dungeon,
 };
 
 export default class TileGenerator{
@@ -54,12 +48,11 @@ export default class TileGenerator{
     public Create():void{
         //create a tile, the string represents what sprite needs to be used
         //currently only one placeholder sprite exists
-        this.currentTile = new Tile(this.gameVar, Biomes.desert);
+        this.currentTile = new Tile(this.gameVar, Biomes.mountain);
         this.currentTile.event = this.eventGenerator.CreateEvent();
     }
 
     public GetCurrentTile():Tile{ return this.currentTile; }
     public GetNextTile():Tile{ return this.nextTile; }
-    public SetNextTile():Tile{
-        return this.nextTile; }
+    public SetNextTile():Tile{ return this.nextTile; }
 }
