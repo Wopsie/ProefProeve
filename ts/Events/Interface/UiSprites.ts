@@ -33,9 +33,9 @@ export default class UiManager
     public CreateButtons():void{
         var UiLayer = this.game.add.group();
 
-        this.AttackImage = UiLayer.create(100,1100,'Attack_Button');
-        this.DefendImage = UiLayer.create(260,1000,'Defend_Button');
-        this.PassiveImage = UiLayer.create(420,1100,'Passive_Button');
+        this.AttackImage = UiLayer.create(90,1000,'Attack_Button');
+        this.DefendImage = UiLayer.create(240,850,'Defend_Button');
+        this.PassiveImage = UiLayer.create(390,1000,'Passive_Button');
 
         this.AttackImage.inputEnabled = true;
         this.DefendImage.inputEnabled = true;
