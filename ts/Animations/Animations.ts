@@ -1,13 +1,17 @@
 import 'phaser-ce';
 import { Sprite, Animation, AnimationManager } from 'phaser-ce';
+import Timer from '../Timer/Timer';
+import { NumericDictionary } from 'lodash';
 
 export default class Animations //extends Phaser.Animation
 {
     public game: Phaser.Game;
     private sprite: Sprite;
-    private spriteArray: Sprite[] = new Array<Sprite>();
+    private timer: Timer;
+    public spriteArray: Sprite[] = new Array<Sprite>();
     private anim: Animation;
-    private animArray: Animation[] = new Array<Animation>();
+    public animArray: Animation[] = new Array<Animation>();
+    
     constructor(game: Phaser.Game){
         this.game = game;
     }
@@ -17,35 +21,39 @@ export default class Animations //extends Phaser.Animation
         this.game.load.spritesheet(key,path,marginX,marginY,fps);
     }
 
-    public Create(i: number,X: number, Y: number,scale: number,key: string): void {    
+    public Create(scale: number,key: string,X: number = 0, Y: number = 0, frameBegin: number = 0,frameEnd: number = 0): void {    
         this.sprite = this.game.add.sprite(X,Y,key);
-        console.log(this.sprite);
         this.sprite.scale.setTo(scale);
-        this.sprite.animations.add(key);
-        this.spriteArray[i] = this.sprite;
+        this.sprite.animations.add(key,this.FillRange(frameBegin,frameEnd));
+        this.spriteArray.push(this.sprite);
         this.anim = this.sprite.animations.getAnimation(key);
-        this.animArray[i] = this.anim;
-        console.log(this.spriteArray.map);
-    } 
-
-    public Update():void {
-        
+        this.animArray.push(this.anim);
     }
 
-    public Play(key: string, fps: number, loop: boolean,kill: boolean,loopAmount: number): void {
+
+    public Play(key: string, fps: number, loop: boolean): void {
         var i = this.SearchKey(key);
-        this.animArray[i].play(fps,true,false);
-        if(loopAmount === 0)
-        {
-            return;
-        }
-        else if(this.animArray[i].loopCount >= loopAmount)
-        {
-            this.animArray[i].stop();
-        }
+        this.animArray[i].play(fps,loop);
     }
 
-    public Stop(): void {
+    public FillRange(frameBegin: number, frameEnd: number): number[]
+    {
+        var a = new Array();
+        for (let index = frameBegin; index < frameEnd; index++) {
+            a.push(index);            
+        }
+        return a;
+    }
+
+    public PlayFrames(key: string,fps: number,beginFromFrame: number): void
+    {
+        var i = this.SearchKey(key);   
+        this.animArray[i].play(fps,true);
+    }
+
+    public Stop(key: string): void {
+        var i = this.SearchKey(key);
+        this.animArray[i].stop();
     }
 
     public SearchKey(key: string): number 
@@ -57,4 +65,6 @@ export default class Animations //extends Phaser.Animation
             }    
         }
     }
+
+
 }
