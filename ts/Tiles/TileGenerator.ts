@@ -6,7 +6,7 @@ import Tile from '../Tiles/Tile';
 import EventGenerator from '../Events/EventGenerator';
 
 export enum Biomes{
-    grass,
+    grass = 0,
     forest,
     desert,
     mountain,
@@ -40,21 +40,20 @@ export default class TileGenerator{
         this.tileImages.push(this.gameVar.load.image('desertToForestSprite', '../../assets/sprites/Trans_Desert_to_Forest.png'));
         this.tileImages.push(this.gameVar.load.image('desertWalkSprite', '../../assets/sprites/Desert_Walk_Tile.png'));
         this.tileImages.push(this.gameVar.load.image('desertBGSprite', '../../assets/sprites/Desert_BG_Tile.png'));
+        this.tileImages.push(this.gameVar.load.image('mountainWalkSprite', '../../assets/sprites/Mountain_Walk_Tile.png'));
+        this.tileImages.push(this.gameVar.load.image('mountainBGSprite', '../../assets/sprites/Mountain_BG_Tile.png'));
+        this.tileImages.push(this.gameVar.load.image('MountainToForestSprite', '../../assets/sprites/Trans_Mountain_to_Forest.png'));
+        this.tileImages.push(this.gameVar.load.image('ForestToMountainSprite', '../../assets/sprites/Trans_Forest_to_Mountain.png'));
+        this.tileImages.push(this.gameVar.load.image('DesertToMountainSprite', '../../assets/sprites/Trans_Desert_to_Mountain.png'));
+        this.tileImages.push(this.gameVar.load.image('MountainToDesertSprite', '../../assets/sprites/Trans_Mountain_to_Desert.png'));
     }
     
     //Create the first tile after the game starts
     public Create():void{
         //create a tile, the string represents what sprite needs to be used
         //currently only one placeholder sprite exists
-        this.currentTile = new Tile(this.gameVar, 'desertWalkSprite', Biomes.forest);
+        this.currentTile = new Tile(this.gameVar, Biomes.mountain);
         this.currentTile.event = this.eventGenerator.CreateEvent();
-        
-        for(var b in Biomes){
-            if(b = Biomes.desert.toString()){
-                console.log(b);
-                
-            }
-        }
     }
 
     public GetCurrentTile():Tile{ return this.currentTile; }
