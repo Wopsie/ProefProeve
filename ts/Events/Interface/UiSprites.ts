@@ -16,13 +16,13 @@ export default class UiManager
         this.game = game;
         this.game.load.image('Attack_Button', 'assets/sprites/ui/Ui_Attack.png')
         this.game.load.image('Defend_Button', 'assets/sprites/ui/Ui_Defend.png')
-        this.game.load.image('Passive_Button', 'assets/sprites/ui/Ui_Passive.png')
+        this.game.load.image('Passive_Button', 'assets/sprites/ui/Ui_Avoid.png')
         
     }
     
     public create():void {
            this.CreateButtons();
-           this.DestroyButtons();
+           //this.DestroyButtons();
     }
 
     public Help():void{
