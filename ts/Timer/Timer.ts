@@ -7,23 +7,34 @@ export default class Timer
     sprite: Phaser.Sprite;
     private anim: Animantions;
     public game: Phaser.Game;
+    private timeElapsed: number;
+    private waitTime: number;
 
     constructor(game: Phaser.Game)
     {
         this.game = game;
         this.anim = new Animantions(this.game);
-        this.anim.LoadSpritesheet('timer','assets/sprites/spritesheet_Timer.png',545,965,24);
+        this.anim.LoadSpritesheet('timer','assets/animations/spritesheet_Timer.png',545,965,24);
         this.anim.LoadSpritesheet('hero','assets/sprites/spritesheet_hero_front.png',386,423,2);
+        this.anim.LoadSpritesheet('condor','assets/animations/CondorSpriteSheet.png',500,500,3);
     }
 
     public Create(): void {
-        this.anim.Create(0,590,-50,0.25,'timer');
-        this.anim.Create(1,50,50,1,'hero');
-        this.anim.Play('timer',24,true,false,5);
-        this.anim.Play('hero',2,true,false,10);
+        this.anim.Create(0.25,'timer',585,-50);
+        this.anim.Create(1,'condor',0,0,1,3);
+        this.anim.Play('timer',24,true);
+        this.anim.Play('condor',3,true);
     }
 
-    public Update():void { 
-        this.anim.Update();       
+    public Update():void {   
+    }
+
+    public StopWatch(ms: number): void {
+        setTimeout(this.Stop,ms);
+    }
+
+    private Stop(): void
+    {
+        console.log('Given time exceeded');       
     }
 }
