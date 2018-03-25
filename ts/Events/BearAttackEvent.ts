@@ -9,6 +9,7 @@ export default class BearAttackEvent implements iEvent{
 
     constructor(name : string = "Bear attack"){
         this.eventName = name;
+        this.eventType = EventTypes.bearAttack;
         console.log("A BEAR ATTACKS");
     }
 
@@ -28,6 +29,16 @@ export default class BearAttackEvent implements iEvent{
 
     PassiveAction():void{
         console.log(this.eventName + " avoid action");
+
+    }
+
+    //called when event is completed successfully
+    Success():void{
+
+    }
+
+    //called when event has been failed
+    Failure():void{
 
     }
 }

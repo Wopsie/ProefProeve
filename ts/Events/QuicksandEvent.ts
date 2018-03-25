@@ -9,6 +9,7 @@ export default class QuicksandEvent implements iEvent{
 
     constructor(name : string = "Quicksand"){
         this.eventName = name;
+        this.eventType = EventTypes.quickSand;
         console.log("QUICKSAND");
         //this.loadEventAssets();
 
@@ -32,6 +33,16 @@ export default class QuicksandEvent implements iEvent{
 
     PassiveAction():void{
         console.log(this.eventName + " avoid action");
+
+    }
+
+    //called when event is completed successfully
+    Success():void{
+
+    }
+
+    //called when event has been failed
+    Failure():void{
 
     }
 }

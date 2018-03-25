@@ -9,6 +9,7 @@ export default class AvalangeEvent implements iEvent{
 
     constructor(name : string = "Avalange"){
         this.eventName = name;
+        this.eventType = EventTypes.avalange;
         console.log("AVALANGE");
         //this.loadEventAssets();
 
@@ -31,6 +32,16 @@ export default class AvalangeEvent implements iEvent{
 
     PassiveAction():void{
         console.log(this.eventName + " avoid action");
+
+    }
+
+    //called when event is completed successfully
+    Success():void{
+
+    }
+
+    //called when event has been failed
+    Failure():void{
 
     }
 }

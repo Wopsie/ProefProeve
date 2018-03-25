@@ -40,31 +40,52 @@ export default class EventGenerator{
         //clear array
         this.availableTypes = [];
 
-        this.lastEvent = new EventTemplate("last event");
+        this.lastEvent = new AvalangeEvent();
 
         //store the previous event so it cant be repeated
         //might do this better with an enum later
         if(this.currentEvent != null)
             this.lastEvent = this.currentEvent;
 
-        this.currentEvent = new EventTemplate("New Event");
+        //this.currentEvent = new EventTemplate("New Event");
 
         //figure out which events are allowed to be fired on the current tile
         switch(this.tileGenerator.GetCurrentTile().biome){
             case Biomes.forest:
-                if(this.lastEvent.eventType != EventTypes.wolfAttack) this.availableTypes.push(EventTypes.wolfAttack);
-                if(this.lastEvent.eventType != EventTypes.bearAttack) this.availableTypes.push(EventTypes.bearAttack);
-                if(this.lastEvent.eventType != EventTypes.lightningStorm) this.availableTypes.push(EventTypes.lightningStorm);
+                //check if there has been a previous event to take into account
+                if(this.lastEvent != null){
+                    if(this.lastEvent.eventType != EventTypes.wolfAttack) this.availableTypes.push(EventTypes.wolfAttack);
+                    if(this.lastEvent.eventType != EventTypes.bearAttack) this.availableTypes.push(EventTypes.bearAttack);
+                    if(this.lastEvent.eventType != EventTypes.lightningStorm) this.availableTypes.push(EventTypes.lightningStorm);
+                }else{ //if not, just add every event of the tile to the available events array
+                    this.availableTypes.push(EventTypes.wolfAttack);
+                    this.availableTypes.push(EventTypes.bearAttack);
+                    this.availableTypes.push(EventTypes.lightningStorm);
+                }
                 break;
             case Biomes.desert:
-                if(this.lastEvent.eventType != EventTypes.condorAttack) this.availableTypes.push(EventTypes.condorAttack);
-                if(this.lastEvent.eventType != EventTypes.quickSand) this.availableTypes.push(EventTypes.quickSand);
-                if(this.lastEvent.eventType != EventTypes.sandStorm) this.availableTypes.push(EventTypes.sandStorm);
+                if(this.lastEvent != null){
+                    if(this.lastEvent.eventType != EventTypes.condorAttack) this.availableTypes.push(EventTypes.condorAttack);
+                    if(this.lastEvent.eventType != EventTypes.quickSand) this.availableTypes.push(EventTypes.quickSand);
+                    if(this.lastEvent.eventType != EventTypes.sandStorm) this.availableTypes.push(EventTypes.sandStorm);
+                }else{
+                    this.availableTypes.push(EventTypes.condorAttack);
+                    this.availableTypes.push(EventTypes.quickSand);
+                    this.availableTypes.push(EventTypes.sandStorm);
+                }
                 break;
             case Biomes.mountain:
-                if(this.lastEvent.eventType != EventTypes.trollAttack) this.availableTypes.push(EventTypes.trollAttack);
-                if(this.lastEvent.eventType != EventTypes.avalange) this.availableTypes.push(EventTypes.avalange);
-                if(this.lastEvent.eventType != EventTypes.narrowPath) this.availableTypes.push(EventTypes.narrowPath);
+                if(this.lastEvent != null){
+                    if(this.lastEvent.eventType != EventTypes.trollAttack) this.availableTypes.push(EventTypes.trollAttack);
+                    if(this.lastEvent.eventType != EventTypes.avalange) this.availableTypes.push(EventTypes.avalange);
+                    if(this.lastEvent.eventType != EventTypes.narrowPath) this.availableTypes.push(EventTypes.narrowPath);
+                    console.log("Last event IS HERE!");
+                }else{
+                    console.log("Last event doesnt exist!");
+                    this.availableTypes.push(EventTypes.trollAttack);
+                    this.availableTypes.push(EventTypes.avalange);
+                    this.availableTypes.push(EventTypes.narrowPath);
+                }
                 break;
         }
 
@@ -72,8 +93,10 @@ export default class EventGenerator{
     }
 
     private selectEvent(options : number[]):iEvent{
+        
         //pick an eventtype from the enum at random index that is present in the options array
         this.selectedEvent = options[Math.floor(Math.random() * options.length)];
+
         console.log(EventTypes[this.selectedEvent]);
         console.log("Selected event " + EventTypes[this.selectedEvent] + " from " + this.availableTypes.length + " available options");
 
@@ -104,4 +127,6 @@ export default class EventGenerator{
         this.gameVar.load.image('wolfEnemy', '../../assets/sprites/WolfEnemy.png');
         this.gameVar.load.image('condorEnemy', '../../assets/sprites/CondorEnemy.png');
     }
+
+    public GetTileGenerator():TileGenerator{ return this.tileGenerator; }
 }

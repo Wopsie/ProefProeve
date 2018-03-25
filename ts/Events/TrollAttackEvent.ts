@@ -9,6 +9,7 @@ export default class TrollAttackEvent implements iEvent{
 
     constructor(name : string = "Troll attack"){
         this.eventName = name;
+        this.eventType = EventTypes.trollAttack;
         console.log("A TROLL ATTACKS");
         //this.loadEventAssets();
 
@@ -32,6 +33,16 @@ export default class TrollAttackEvent implements iEvent{
 
     PassiveAction():void{
         console.log(this.eventName + " avoid action");
+
+    }
+
+    //called when event is completed successfully
+    Success():void{
+
+    }
+
+    //called when event has been failed
+    Failure():void{
 
     }
 }

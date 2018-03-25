@@ -9,6 +9,7 @@ export default class CondorAttackEvent implements iEvent{
 
     constructor(name : string = "Condor attack"){
         this.eventName = name;
+        this.eventType = EventTypes.condorAttack;
         console.log("A CONDOR ATTACKS");
         //this.loadEventAssets();
 
@@ -32,6 +33,15 @@ export default class CondorAttackEvent implements iEvent{
 
     PassiveAction():void{
         console.log(this.eventName + " avoid action");
+
+    }
+    //called when event is completed successfully
+    Success():void{
+
+    }
+
+    //called when event has been failed
+    Failure():void{
 
     }
 }

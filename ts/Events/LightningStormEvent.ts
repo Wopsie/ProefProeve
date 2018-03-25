@@ -8,6 +8,7 @@ export default class LightningStormEvent implements iEvent{
 
     constructor(name : string = "Lightning strike"){
         this.eventName = name;
+        this.eventType = EventTypes.lightningStorm;
         console.log("LIGHTNING STRIKE");
     }
 
@@ -27,6 +28,16 @@ export default class LightningStormEvent implements iEvent{
 
     PassiveAction():void{
         console.log(this.eventName + " avoid action");
+
+    }
+
+    //called when event is completed successfully
+    Success():void{
+
+    }
+
+    //called when event has been failed
+    Failure():void{
 
     }
 }

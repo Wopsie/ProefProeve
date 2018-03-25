@@ -9,6 +9,7 @@ export default class NarrowPathEvent implements iEvent{
 
     constructor(name : string = "Narrow path"){
         this.eventName = name;
+        this.eventType = EventTypes.narrowPath;
         console.log("NARROW PATH");
         //this.loadEventAssets();
 
@@ -32,6 +33,16 @@ export default class NarrowPathEvent implements iEvent{
 
     PassiveAction():void{
         console.log(this.eventName + " avoid action");
+
+    }
+
+    //called when event is completed successfully
+    Success():void{
+
+    }
+
+    //called when event has been failed
+    Failure():void{
 
     }
 }
