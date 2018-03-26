@@ -5,10 +5,8 @@ import { Sprite } from 'phaser-ce';
 export default class Hero
 {
     private game: Phaser.Game;
-    private sprite: Sprite;
+    private spritePoses: Sprite[];
     private animations: Animantions;
-    private heroBack: Animantions;
-    private heroFront: Animantions;
 
     constructor(game: Phaser.Game)
     {
@@ -19,9 +17,11 @@ export default class Hero
     }
 
     public Create(): void {
-        this.animations.Create('heroBack',0.25);
-        this.animations.Create('heroFront',0.25,150);
-        this.animations.Play('heroBack',2,true);
-        this.animations.Play('heroFront',2,true);
+      // this.spritePoses.push(this.animations.SearchFrame('heroBack'));
+    }
+
+    public ChangePose(pose: string): void
+    {
+        
     }
 }

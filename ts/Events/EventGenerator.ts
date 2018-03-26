@@ -4,7 +4,7 @@ import EventTemplate from '../Events/EventTemplate';
 import WolfAttackEvent from '../Events/WolfAttackEvent';
 import CondorAttackEvent from '../Events/CondorAttackEvent';
 import BearAttackEvent from '../Events/BearAttackEvent';
-import TrollAttackEvent from '../Events/TrollAttackEvent';
+import TrollAttackEvent from '../Events/OgreAttackEvent';
 import QuicksandEvent from '../Events/QuicksandEvent';
 import AvalangeEvent from '../Events/AvalangeEvent';
 import LightningStormEvent from '../Events/LightningStormEvent';

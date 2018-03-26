@@ -18,6 +18,7 @@ export default class CondorAttackEvent implements iEvent{
 
     StartEvent():void{
         //start checking for inputs
+        //this.anim.Create('condor',1,0,0,1,3);
     }
 
     AgressiveAction():void{
