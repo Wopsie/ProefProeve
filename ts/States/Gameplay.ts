@@ -41,8 +41,6 @@ export default class Gameplay extends Phaser.State {
         this.UiSprites = new UiSprites(this.game, this.tileGenerator);
         //call methods that load assets
         this.tileGenerator.LoadTileAssets();
-
-
     }
     
     public create(): void{
@@ -51,8 +49,8 @@ export default class Gameplay extends Phaser.State {
         this.hero.Create();
         this.tileGenerator.Create();
         
-        this.UiSprites.create();
-        //this.tileGenerator.uiButtonSwitchSignal.add(this.UiSprites.DestroyButtons, this, 0);
+        //this.UiSprites.create();
+        this.tileGenerator.uiButtonSwitchSignal.add(this.UiSprites.ButtonSwitch, this.UiSprites, 0);
     }
 
     public update(): void{

@@ -7,6 +7,7 @@ export default class BearAttackEvent implements iEvent{
     public npcAssets : Phaser.Image;
     public dialogue : JSON;
     public completionSignal : Phaser.Signal = new Phaser.Signal();
+    public startSignal : Phaser.Signal = new Phaser.Signal();
 
     constructor(name : string = "Bear attack"){
         this.eventName = name;
@@ -15,7 +16,8 @@ export default class BearAttackEvent implements iEvent{
     }
 
     StartEvent():void{
-        
+        this.startSignal.dispatch(true);
+        console.log(this.eventName + " STARTING NOW");
     }
 
     AgressiveAction():void{

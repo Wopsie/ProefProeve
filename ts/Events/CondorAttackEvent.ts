@@ -7,6 +7,7 @@ export default class CondorAttackEvent implements iEvent{
     public npcAssets : Phaser.Image;
     public dialogue : JSON;
     public completionSignal : Phaser.Signal = new Phaser.Signal();
+    public startSignal : Phaser.Signal = new Phaser.Signal();
 
     constructor(name : string = "Condor attack"){
         this.eventName = name;
@@ -21,6 +22,9 @@ export default class CondorAttackEvent implements iEvent{
     StartEvent():void{
         //start checking for inputs
         //this.anim.Create('condor',1,0,0,1,3);
+        this.startSignal.dispatch(true);
+        console.log(this.eventName + " STARTING NOW");
+        
     }
 
     AgressiveAction():void{

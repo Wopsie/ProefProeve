@@ -58,7 +58,8 @@ export default class TileGenerator{
         this.currentTile = new Tile(this.gameVar, Biomes.forest);
         this.currentTile.event = this.eventGenerator.CreateEvent();
         //this is for when a choice is made
-        this.currentTile.event.completionSignal.addOnce(this.OnEventChange, this, 0);
+        this.currentTile.event.completionSignal.addOnce(this.OnEventFinish, this, 0);
+        this.currentTile.event.startSignal.addOnce(this.OnEventStart, this, 0);
         this.currentTile.offScreenSignal.addOnce(this.CreateTile, this, 0);
     }
 
@@ -85,16 +86,17 @@ export default class TileGenerator{
         //create the tile & event, add methods to the signals on the tile & event
         this.currentTile = new Tile(this.gameVar, this.nextBiome);
         this.currentTile.event = this.eventGenerator.CreateEvent();
-        this.currentTile.event.completionSignal.addOnce(this.OnEventChange, this, 0);
+        this.currentTile.event.completionSignal.addOnce(this.OnEventFinish, this, 0);
+        this.currentTile.event.startSignal.addOnce(this.OnEventStart, this, 0);
         this.currentTile.offScreenSignal.addOnce(this.CreateTile, this, 0);
     }
 
-    private OnEventChange(success : boolean):void{
+    private OnEventFinish(success : boolean):void{
         console.log("THE EVENT SUCCESS IS: " + success);
         //player has successfully completed the event
         if(success){
             //make buttons invisible
-            //this.uiButtonSwitchSignal.dispatch(false);
+            this.uiButtonSwitchSignal.dispatch(false);
             //move current tiles downwards
             this.currentTile.SetTileState(TileState.movingDown);
             //when out of screen create new tile with biome and shit
@@ -107,6 +109,11 @@ export default class TileGenerator{
             //make buttons invisible
             this.uiButtonSwitchSignal.dispatch(false);
         }
+    }
+
+    private OnEventStart():void{
+        console.log("EVENT HAS STARTED");
+        this.uiButtonSwitchSignal.dispatch(true);
     }
 
     public GetCurrentTile():Tile{ return this.currentTile; }

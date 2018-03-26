@@ -9,6 +9,7 @@ export default interface iEvent{
     dialogue? : JSON; // not finalized
     npcAssets : Phaser.Image; // for example a wolf spritesheet
     completionSignal? : Phaser.Signal;
+    startSignal? : Phaser.Signal;
 
     StartEvent():void;
     AgressiveAction():void;

@@ -49,7 +49,7 @@ export default class Tile extends Phaser.Image{
             //did the sprite get to the set position yet
             if(this.eventTileSprite.y >= 700){
                 this.eventTileSprite.y -= 7;
-            }else{ //make sprite move down again, this should wait untill event has been completed
+            }else{ //wait untill event has been completed
                 console.log('sprite reached high destination');
                 this.eventTileSprite.y = 700;
                 this.tileState = TileState.waiting;

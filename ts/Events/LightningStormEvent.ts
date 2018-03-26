@@ -6,6 +6,7 @@ export default class LightningStormEvent implements iEvent{
     public eventName : string;
     public npcAssets : Phaser.Image;
     public completionSignal : Phaser.Signal = new Phaser.Signal();
+    public startSignal : Phaser.Signal = new Phaser.Signal();
 
     constructor(name : string = "Lightning strike"){
         this.eventName = name;
@@ -14,7 +15,9 @@ export default class LightningStormEvent implements iEvent{
     }
 
     StartEvent():void{
-
+        this.startSignal.dispatch(true);
+        console.log(this.eventName + " STARTING NOW");
+        
     }
 
     AgressiveAction():void{
