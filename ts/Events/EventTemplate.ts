@@ -34,4 +34,14 @@ export default class EventTemplate implements iEvent{
     PassiveAction():void{
         console.log("template event passive action");
     }
+
+    //called when event is completed successfully
+    Success():void{
+
+    }
+
+    //called when event has been failed
+    Failure():void{
+
+    }
 }

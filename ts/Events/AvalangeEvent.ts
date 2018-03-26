@@ -1,25 +1,28 @@
-import iEvent from "./Interface/iEvent";
-import { EventTypes } from "./EventGenerator";
+import iEvent from '../Events/Interface/iEvent';
+import { EventTypes } from './EventGenerator';
 
-export default class BearAttackEvent implements iEvent{
+export default class AvalangeEvent implements iEvent{
     public eventType : EventTypes;
     public eventName : string;
     public npcAssets : Phaser.Image;
     public dialogue : JSON;
 
-    constructor(name : string = "Bear attack"){
+    constructor(name : string = "Avalange"){
         this.eventName = name;
-        this.eventType = EventTypes.bearAttack;
-        console.log("A BEAR ATTACKS");
+        this.eventType = EventTypes.avalange;
+        console.log("AVALANGE");
+        //this.loadEventAssets();
+
+        //event assets are loaded into memory by the event generator
+        //to be used by all the events when its done
     }
 
     StartEvent():void{
-        
+        //start checking for inputs
     }
 
     AgressiveAction():void{
         console.log(this.eventName + " agressive action");
-
     }
 
     DefensiveAction():void{

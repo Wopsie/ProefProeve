@@ -7,8 +7,9 @@ export default class WolfAttackEvent implements iEvent{
     public npcAssets : Phaser.Image;
     public dialogue : JSON;
 
-    constructor(name : string = "default"){
+    constructor(name : string = "Wolf attack"){
         this.eventName = name;
+        this.eventType = EventTypes.wolfAttack;
         console.log("A WOLF ATTACKS");
         //this.loadEventAssets();
 
@@ -21,14 +22,27 @@ export default class WolfAttackEvent implements iEvent{
     }
 
     AgressiveAction():void{
+        console.log(this.eventName + " agressive action");
 
     }
 
     DefensiveAction():void{
+        console.log(this.eventName + " defensive action");
 
     }
 
     PassiveAction():void{
+        console.log(this.eventName + " avoid action");
+
+    }
+
+    //called when event is completed successfully
+    Success():void{
+
+    }
+
+    //called when event has been failed
+    Failure():void{
 
     }
 }

@@ -31,10 +31,9 @@ export default class Gameplay extends Phaser.State {
         this.audioManager = new AudioManager();
         this.audioManager.Preload(this.game);
         this.audioManager.LoadInSounds();
-        //console.log("RUNNING GAME");
         //instantiate classes
         this.tileGenerator = new TileGenerator(this.game);
-        this.UiSprites = new UiSprites(this.game);
+        this.UiSprites = new UiSprites(this.game, this.tileGenerator);
         //call methods that load assets
         this.tileGenerator.LoadTileAssets();
     }
@@ -45,16 +44,12 @@ export default class Gameplay extends Phaser.State {
         this.tileGenerator.Create();
 
         this.UiSprites.create();
-        //this.tileGenerator.GetCurrentTile().event.AgressiveAction();
-        //console.log(this.tileGenerator.GetCurrentTile().event.eventName);
-        //this.eventGenerator.CreateEvent();
     }
 
     public update(): void{
         super.update(this.game);
         this.timer.Update();
         this.audioManager.Update();
-        //console.log("RUNNING GAME");
     }
 
     public shutdown(): void {
@@ -78,7 +73,7 @@ export default class Gameplay extends Phaser.State {
                 this.scaleCanvasContain();
             });
             this.scaleCanvasContain();
-} else {
+        } else {
             let rotateScreen: any = document.getElementById('rotateWarning');
             rotateScreen.classList.add('rotateWarning');
             this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
