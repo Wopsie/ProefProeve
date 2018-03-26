@@ -5,6 +5,7 @@ import 'phaser-ce';
 import Tile from '../Tiles/Tile';
 import EventGenerator from '../Events/EventGenerator';
 import { Math } from 'phaser-ce';
+import Globals from '../States/Globals';
 
 export enum Biomes{
     forest = 0,
@@ -12,8 +13,13 @@ export enum Biomes{
     mountain,
 };
 
-export default class TileGenerator{
+export enum TileState{
+    movingUp = 0,
+    waiting,
+    movingDown,
+};
 
+export default class TileGenerator{
     private gameVar: Phaser.Game;
     private currentTileIdx: number;
     private currentTile: Tile;
@@ -21,6 +27,8 @@ export default class TileGenerator{
     private tileImages: Phaser.Loader[] = [];
     private tilePropImages: Phaser.Loader[] = [];
     private eventGenerator : EventGenerator;
+    private nextBiome : Biomes;
+    public uiButtonSwitchSignal : Phaser.Signal = new Phaser.Signal();
 
     constructor(pGame : Phaser.Game){
         //create one tile to come after the titlescreen has passed
@@ -49,21 +57,55 @@ export default class TileGenerator{
         //create the very first tile that gets shown
         this.currentTile = new Tile(this.gameVar, Biomes.forest);
         this.currentTile.event = this.eventGenerator.CreateEvent();
-
+        //this is for when a choice is made
         this.currentTile.event.completionSignal.addOnce(this.OnEventChange, this, 0);
+        this.currentTile.offScreenSignal.addOnce(this.CreateTile, this, 0);
+    }
+
+    public Update(){
+        this.currentTile.UpdateTile();
     }
 
     private CreateTile():void{
-        //think about what to do with the next tile
+        this.currentTile.destroy();
+
+        //random biome in the biomes enum
+        switch(this.gameVar.rnd.integerInRange(0, 2)){
+            case 0:
+                this.nextBiome = Biomes.forest;
+                break;
+            case 1:
+                this.nextBiome = Biomes.desert;
+                break;
+            case 2:
+                this.nextBiome = Biomes.mountain;
+                break;
+        }
+
+        //create the tile & event, add methods to the signals on the tile & event
+        this.currentTile = new Tile(this.gameVar, this.nextBiome);
+        this.currentTile.event = this.eventGenerator.CreateEvent();
+        this.currentTile.event.completionSignal.addOnce(this.OnEventChange, this, 0);
+        this.currentTile.offScreenSignal.addOnce(this.CreateTile, this, 0);
     }
 
     private OnEventChange(success : boolean):void{
         console.log("THE EVENT SUCCESS IS: " + success);
         //player has successfully completed the event
         if(success){
-            //create next tile with event
+            //make buttons invisible
+            //this.uiButtonSwitchSignal.dispatch(false);
+            //move current tiles downwards
+            this.currentTile.SetTileState(TileState.movingDown);
+            //when out of screen create new tile with biome and shit
+
+            //move the new tile up
+
         }else{
             //game over
+
+            //make buttons invisible
+            this.uiButtonSwitchSignal.dispatch(false);
         }
     }
 

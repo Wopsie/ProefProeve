@@ -74,4 +74,9 @@ export default class UiManager
         this.DefendImage.destroy();
         this.PassiveImage.destroy();
     }
+
+    //switch buttons on and off
+    public ButtonSwitch(on : boolean):void{
+        on ? this.create() : this.DestroyButtons();
+    }
 }
