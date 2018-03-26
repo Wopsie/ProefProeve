@@ -4,7 +4,7 @@ import EventTemplate from '../Events/EventTemplate';
 import WolfAttackEvent from '../Events/WolfAttackEvent';
 import CondorAttackEvent from '../Events/CondorAttackEvent';
 import BearAttackEvent from '../Events/BearAttackEvent';
-import TrollAttackEvent from '../Events/TrollAttackEvent';
+import OgreAttackEvent from '../Events/OgreAttackEvent';
 import QuicksandEvent from '../Events/QuicksandEvent';
 import AvalangeEvent from '../Events/AvalangeEvent';
 import LightningStormEvent from '../Events/LightningStormEvent';
@@ -16,7 +16,7 @@ export enum EventTypes{
     wolfAttack = 0,     //forest
     condorAttack = 1,   //desert
     bearAttack = 2,     //forest
-    trollAttack = 3,    //mountains
+    ogreAttack = 3,    //mountains
     quickSand = 4,      //desert
     avalange = 5,       //mountains
     lightningStorm = 6, //forest
@@ -40,7 +40,7 @@ export default class EventGenerator{
         //clear array
         this.availableTypes = [];
 
-        this.lastEvent = new AvalangeEvent();
+        //this.lastEvent = new AvalangeEvent();
 
         //store the previous event so it cant be repeated
         //might do this better with an enum later
@@ -76,13 +76,13 @@ export default class EventGenerator{
                 break;
             case Biomes.mountain:
                 if(this.lastEvent != null){
-                    if(this.lastEvent.eventType != EventTypes.trollAttack) this.availableTypes.push(EventTypes.trollAttack);
+                    if(this.lastEvent.eventType != EventTypes.ogreAttack) this.availableTypes.push(EventTypes.ogreAttack);
                     if(this.lastEvent.eventType != EventTypes.avalange) this.availableTypes.push(EventTypes.avalange);
                     if(this.lastEvent.eventType != EventTypes.narrowPath) this.availableTypes.push(EventTypes.narrowPath);
                     console.log("Last event IS HERE!");
                 }else{
                     console.log("Last event doesnt exist!");
-                    this.availableTypes.push(EventTypes.trollAttack);
+                    this.availableTypes.push(EventTypes.ogreAttack);
                     this.availableTypes.push(EventTypes.avalange);
                     this.availableTypes.push(EventTypes.narrowPath);
                 }
@@ -108,7 +108,7 @@ export default class EventGenerator{
             case 2:
                 return new BearAttackEvent();
             case 3:
-                return new TrollAttackEvent();
+                return new OgreAttackEvent();
             case 4:
                 return new QuicksandEvent();
             case 5:
@@ -128,5 +128,12 @@ export default class EventGenerator{
         this.gameVar.load.image('condorEnemy', '../../assets/sprites/CondorEnemy.png');
     }
 
+    private GetEventStatus():void{
+
+    }
+
     public GetTileGenerator():TileGenerator{ return this.tileGenerator; }
+
+
+
 }

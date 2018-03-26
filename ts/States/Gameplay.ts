@@ -1,14 +1,16 @@
 import 'phaser-ce';
-import Timer from '../Timer/Timer';
 import AudioManager from '../Audio/AudioManager';
 import EventTemplate from '../Events/EventTemplate';// this is how you import classes that are marked with "export default"
+import Hero from '../Player/Hero';
 import TileGenerator from '../Tiles/TileGenerator';
+import Timer from '../Timer/Timer';
 import UiSprites from '../Events/Interface/UiSprites'
 export default class Gameplay extends Phaser.State {
     public static Name: string = 'gameplay';
     public name: string = Gameplay.Name;
     private _testSprite: Phaser.Sprite;
     private timer: Timer;
+    private hero: Hero;
     //private playerAnim : Animation;
     private audioManager: AudioManager;
     
@@ -27,6 +29,7 @@ export default class Gameplay extends Phaser.State {
     public preload(): void{
         super.preload(this.game);
         this.timer = new Timer(this.game);
+        this.hero = new Hero(this.game);
         this.game.input.mouse.capture = true;
         this.audioManager = new AudioManager();
         this.audioManager.Preload(this.game);
@@ -41,6 +44,7 @@ export default class Gameplay extends Phaser.State {
     public create(): void{
         super.create(this.game);
         this.timer.Create();
+        this.hero.Create();
         this.tileGenerator.Create();
 
         this.UiSprites.create();
@@ -48,7 +52,6 @@ export default class Gameplay extends Phaser.State {
 
     public update(): void{
         super.update(this.game);
-        this.timer.Update();
         this.audioManager.Update();
     }
 

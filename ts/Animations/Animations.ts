@@ -21,7 +21,7 @@ export default class Animations //extends Phaser.Animation
         this.game.load.spritesheet(key,path,marginX,marginY,fps);
     }
 
-    public Create(scale: number,key: string,X: number = 0, Y: number = 0, frameBegin: number = 0,frameEnd: number = 0): void {    
+    public Create(key: string,scale: number, X: number = 0, Y: number = 0, frameBegin: number = 0,frameEnd: number = 0): void {    
         this.sprite = this.game.add.sprite(X,Y,key);
         this.sprite.scale.setTo(scale);
         this.sprite.animations.add(key,this.FillRange(frameBegin,frameEnd));
@@ -30,25 +30,9 @@ export default class Animations //extends Phaser.Animation
         this.animArray.push(this.anim);
     }
 
-
-    public Play(key: string, fps: number, loop: boolean): void {
+    public Play(key: string, fps: number, loop: boolean,kill:boolean): void {
         var i = this.SearchKey(key);
-        this.animArray[i].play(fps,loop);
-    }
-
-    public FillRange(frameBegin: number, frameEnd: number): number[]
-    {
-        var a = new Array();
-        for (let index = frameBegin; index < frameEnd; index++) {
-            a.push(index);            
-        }
-        return a;
-    }
-
-    public PlayFrames(key: string,fps: number,beginFromFrame: number): void
-    {
-        var i = this.SearchKey(key);   
-        this.animArray[i].play(fps,true);
+        this.animArray[i].play(fps,loop,kill);
     }
 
     public Stop(key: string): void {
@@ -56,7 +40,7 @@ export default class Animations //extends Phaser.Animation
         this.animArray[i].stop();
     }
 
-    public SearchKey(key: string): number 
+    private SearchKey(key: string): number 
     {
         for (let index = 0; index < this.spriteArray.length; index++) {
             if(this.spriteArray[index].key == key)
@@ -66,5 +50,23 @@ export default class Animations //extends Phaser.Animation
         }
     }
 
+    public SearchFrame(key: string): Sprite
+    {
+        for (let index = 0; index < this.spriteArray.length; index++) {
+            if(this.spriteArray[index].key == key)
+            {
+                return this.spriteArray[index];
+            }    
+        }
+    }
+
+    private FillRange(frameBegin: number, frameEnd: number): number[]
+    {
+        var a = new Array();
+        for (let index = frameBegin; index < frameEnd; index++) {
+            a.push(index);            
+        }
+        return a;
+    }
 
 }
