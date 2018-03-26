@@ -40,7 +40,7 @@ export default class EventGenerator{
         //clear array
         this.availableTypes = [];
 
-        this.lastEvent = new AvalangeEvent();
+        //this.lastEvent = new AvalangeEvent();
 
         //store the previous event so it cant be repeated
         //might do this better with an enum later
@@ -128,5 +128,12 @@ export default class EventGenerator{
         this.gameVar.load.image('condorEnemy', '../../assets/sprites/CondorEnemy.png');
     }
 
+    private GetEventStatus():void{
+
+    }
+
     public GetTileGenerator():TileGenerator{ return this.tileGenerator; }
+
+
+
 }

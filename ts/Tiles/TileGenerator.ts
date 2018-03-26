@@ -47,8 +47,24 @@ export default class TileGenerator{
     //Create the first tile after the game starts
     public Create():void{
         //create the very first tile that gets shown
-        this.currentTile = new Tile(this.gameVar, Biomes.mountain);
+        this.currentTile = new Tile(this.gameVar, Biomes.forest);
         this.currentTile.event = this.eventGenerator.CreateEvent();
+
+        this.currentTile.event.completionSignal.addOnce(this.OnEventChange, this, 0);
+    }
+
+    private CreateTile():void{
+        //think about what to do with the next tile
+    }
+
+    private OnEventChange(success : boolean):void{
+        console.log("THE EVENT SUCCESS IS: " + success);
+        //player has successfully completed the event
+        if(success){
+            //create next tile with event
+        }else{
+            //game over
+        }
     }
 
     public GetCurrentTile():Tile{ return this.currentTile; }
