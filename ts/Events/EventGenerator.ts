@@ -40,15 +40,6 @@ export default class EventGenerator{
         //clear array
         this.availableTypes = [];
 
-        //this.lastEvent = new AvalangeEvent();
-
-        //store the previous event so it cant be repeated
-        //might do this better with an enum later
-        if(this.currentEvent != null)
-            this.lastEvent = this.currentEvent;
-
-        //this.currentEvent = new EventTemplate("New Event");
-
         //figure out which events are allowed to be fired on the current tile
         switch(this.tileGenerator.GetCurrentTile().biome){
             case Biomes.forest:
@@ -88,8 +79,10 @@ export default class EventGenerator{
                 }
                 break;
         }
-
-        return this.selectEvent(this.availableTypes);
+        let e = this.selectEvent(this.availableTypes);
+        //store the previous event so it cant be repeated
+        this.lastEvent = e;
+        return e;
     }
 
     private selectEvent(options : number[]):iEvent{
@@ -128,12 +121,5 @@ export default class EventGenerator{
         this.gameVar.load.image('condorEnemy', '../../assets/sprites/CondorEnemy.png');
     }
 
-    private GetEventStatus():void{
-
-    }
-
     public GetTileGenerator():TileGenerator{ return this.tileGenerator; }
-
-
-
 }

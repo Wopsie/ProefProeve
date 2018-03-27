@@ -5,6 +5,7 @@ import Hero from '../Player/Hero';
 import TileGenerator from '../Tiles/TileGenerator';
 import Timer from '../Timer/Timer';
 import UiSprites from '../Events/Interface/UiSprites'
+import Globals from '../States/Globals';
 export default class Gameplay extends Phaser.State {
     public static Name: string = 'gameplay';
     public name: string = Gameplay.Name;
@@ -18,6 +19,7 @@ export default class Gameplay extends Phaser.State {
     private testEvent: EventTemplate;
     private tileGenerator: TileGenerator;
     private UiSprites : UiSprites;
+    private globals : Globals;
 
     private GAME_WIDTH : number = 720;
     private GAME_HEIGHT : number = 1280;
@@ -46,13 +48,15 @@ export default class Gameplay extends Phaser.State {
         this.timer.Create();
         this.hero.Create();
         this.tileGenerator.Create();
-
-        this.UiSprites.create();
+        
+        //this.UiSprites.create();
+        this.tileGenerator.uiButtonSwitchSignal.add(this.UiSprites.ButtonSwitch, this.UiSprites, 0);
     }
 
     public update(): void{
         super.update(this.game);
         this.audioManager.Update();
+        this.tileGenerator.Update();
     }
 
     public shutdown(): void {

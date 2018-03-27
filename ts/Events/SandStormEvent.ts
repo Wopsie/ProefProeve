@@ -7,6 +7,7 @@ export default class SandstormEvent implements iEvent{
     public npcAssets : Phaser.Image;
     public dialogue : JSON;
     public completionSignal : Phaser.Signal = new Phaser.Signal();
+    public startSignal : Phaser.Signal = new Phaser.Signal();
 
     constructor(name : string = "Sandstorm"){
         this.eventName = name;
@@ -20,6 +21,9 @@ export default class SandstormEvent implements iEvent{
 
     StartEvent():void{
         //start checking for inputs
+        this.startSignal.dispatch(true);
+        console.log(this.eventName + " STARTING NOW");
+        
     }
 
     AgressiveAction():void{

@@ -12,6 +12,7 @@ export default class UiManager
     public AttackImage: Phaser.Sprite;
     public DefendImage: Phaser.Sprite;
     public PassiveImage: Phaser.Sprite;
+    private UiLayer : Phaser.Group;
 
     //loads in all images for the ui
     constructor(game : Phaser.Game, t : TileGenerator) {
@@ -23,8 +24,8 @@ export default class UiManager
     }
     
     public create():void {
-           this.CreateButtons();
-           //this.DestroyButtons();
+        this.CreateButtons();
+        //this.DestroyButtons();
     }
 
     public Help():void{
@@ -45,11 +46,11 @@ export default class UiManager
 
     //creates ui and gives functions
     public CreateButtons():void{
-        var UiLayer = this.game.add.group();
+        this.UiLayer = this.game.add.group();
         //create buttons
-        this.AttackImage = UiLayer.create(5,1000,'Attack_Button');
-        this.DefendImage = UiLayer.create(250,1000,'Defend_Button');
-        this.PassiveImage = UiLayer.create(500,1000,'Passive_Button');
+        this.AttackImage = this.UiLayer.create(5,1000,'Attack_Button');
+        this.DefendImage = this.UiLayer.create(250,1000,'Defend_Button');
+        this.PassiveImage = this.UiLayer.create(500,1000,'Passive_Button');
         //scale buttons
         this.AttackImage.scale.setTo(0.75,0.75);
         this.DefendImage.scale.setTo(0.75,0.75);
@@ -69,9 +70,14 @@ export default class UiManager
         this.AttackImage.inputEnabled = false;
         this.DefendImage.inputEnabled = false;
         this.PassiveImage.inputEnabled = false;
-
+    
         this.AttackImage.destroy();
         this.DefendImage.destroy();
-        this.PassiveImage.destroy();
+        this.PassiveImage.destroy();    
+    }
+
+    //switch buttons on and off
+    public ButtonSwitch(on : boolean):void{
+        on ? this.CreateButtons() : this.DestroyButtons();
     }
 }
