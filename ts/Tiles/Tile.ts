@@ -14,6 +14,9 @@ export default class Tile extends Phaser.Image{
     private tileState : TileState;
     public offScreenSignal : Phaser.Signal;
 
+    private tweenUp : Phaser.Tween;
+    private tweenDown : Phaser.Tween;
+
     constructor(pGame : Phaser.Game, biomeType : Biomes){
         let tileArt;
         switch(biomeType){
@@ -42,22 +45,29 @@ export default class Tile extends Phaser.Image{
         this.tileState = state;
     }
 
+    // tweenA = game.add.tween(spriteA).to( { x: 600 }, 2000, "Quart.easeOut");
+
     //responsible for 'animating' the tiles
     public MoveTile():void{
         //check what the sprite should be doing
         if(this.tileState == TileState.movingUp){
             //did the sprite get to the set position yet
-            if(this.eventTileSprite.y >= 700){
-                this.eventTileSprite.y -= 7;
+            if(this.eventTileSprite.y > 700){
+                if(this.tweenUp == null)
+                    this.tweenUp = this.game.add.tween(this.eventTileSprite).to({y: 700}, 1500, "Quart.easeOut");
+                else
+                    this.tweenUp.start();
             }else{ //wait untill event has been completed
                 console.log('sprite reached high destination');
-                this.eventTileSprite.y = 700;
                 this.tileState = TileState.waiting;
                 this.event.StartEvent();
             }
         }else if(this.tileState == TileState.movingDown){
-            if(this.eventTileSprite.y <= 1350){
-                this.eventTileSprite.y += 7
+            if(this.eventTileSprite.y < 1350){
+                if(this.tweenDown == null)
+                    this.tweenDown = this.game.add.tween(this.eventTileSprite).to({y: 1350}, 500, "Quart.easeOut");
+                else    
+                    this.tweenDown.start();
             }else{
                 console.log('sprite reached low destination');
                 //this.tileState = TileState.movingUp;
