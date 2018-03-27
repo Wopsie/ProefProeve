@@ -5,6 +5,7 @@ import { Biomes, TileState } from './TileGenerator';
 import iEvent from '../Events/Interface/iEvent';
 import EventTemplate from '../Events/EventTemplate';
 import { Sprite } from 'phaser-ce';
+import TiledBackground from '../Tiles/TiledBackground';
 export default class Tile extends Phaser.Image{
 
     public biome : Biomes;
@@ -13,9 +14,12 @@ export default class Tile extends Phaser.Image{
     public inPosition : boolean;
     private tileState : TileState;
     public offScreenSignal : Phaser.Signal;
-
+    private backGroup : Phaser.Group;
+    private eventGroup : Phaser.Group;
+    private frontGroup : Phaser.Group;
     private tweenUp : Phaser.Tween;
     private tweenDown : Phaser.Tween;
+    private tiledBG : TiledBackground;
 
     constructor(pGame : Phaser.Game, biomeType : Biomes){
         let tileArt;
@@ -32,11 +36,18 @@ export default class Tile extends Phaser.Image{
         }
 
         super(pGame, 0, 0, tileArt);
+        
+        this.offScreenSignal = new Phaser.Signal();
+        this.backGroup = pGame.add.group();
+        this.eventGroup = pGame.add.group();
+        this.frontGroup = pGame.add.group();
         //this puts the sprite on screen
 
-        this.offScreenSignal = new Phaser.Signal();
+        this.tiledBG = new TiledBackground(pGame, biomeType);
+        //add sprites to backgroup
+        this.eventTileSprite = pGame.add.sprite(80, 1280, tileArt, this.eventGroup);
+        //add sprites to frontgroup
 
-        this.eventTileSprite = pGame.add.sprite(80, 1280, tileArt);
         this.biome = biomeType;
         this.tileState = TileState.movingUp;
     }
