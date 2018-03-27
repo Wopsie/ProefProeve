@@ -14,6 +14,7 @@ export default class Jsonreader{
 
 
     }
+    
     constructor(Game: Phaser.Game){
         this.Isloaded = false;
         
@@ -24,6 +25,7 @@ export default class Jsonreader{
 
 
         });
+
     }
     
     /**

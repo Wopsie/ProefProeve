@@ -3,7 +3,7 @@ import Test from '../Events/Test'; // this is how you import classes that are ma
 import Timer from '../Timer/Timer';
 import AudioManager from '../Audio/AudioManager';
 import JsonReader from '../DialogueSystem/Jsonreader';
-
+import DialogueWriter from '../DialogueSystem/DialogueWriter';
 //I dont know how most of this works yet haha
 
 import EventTemplate from '../Events/EventTemplate';// this is how you import classes that are marked with "export default"
@@ -15,7 +15,7 @@ export default class Gameplay extends Phaser.State {
     private testClass: Test;    //then you make a variable of the class type
     private timer: Timer;
     private jsonReader: JsonReader;
-
+    private dialogueWriter: DialogueWriter;
     //private playerAnim : Animation;
     private audioManager: AudioManager;
     
@@ -37,6 +37,7 @@ export default class Gameplay extends Phaser.State {
         //console.log("RUNNING GAME");
         //instantiate classes
         this.jsonReader = new  JsonReader(this.game);
+        this.dialogueWriter = new DialogueWriter(this.game);
         this.tileGenerator = new TileGenerator(this.game);
         
         //this.testEvent = new EventTemplate();//then you instantiate the class as the variable we made earlier
@@ -52,6 +53,7 @@ export default class Gameplay extends Phaser.State {
         this.tileGenerator.Create();
         this.tileGenerator.GetCurrentTile().event.AgressiveAction();
         console.log(this.tileGenerator.GetCurrentTile().event.eventName);
+        this.dialogueWriter.Create(this.game);
     }
 
     public update(): void{
