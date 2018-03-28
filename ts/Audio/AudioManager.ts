@@ -2,7 +2,7 @@ import 'phaser-ce';
 import { Game } from "phaser-ce";
 import Gameplay from '../States/Gameplay';
 
-export default class AudioManager extends Phaser.State{   
+export default class AudioManager {   
 
     public MusicCaseString: String = 'Music';
     public MusicSongString: string = 'Music';
@@ -15,37 +15,18 @@ export default class AudioManager extends Phaser.State{
     private actionaudio : Phaser.Sound;
     private backgroundmusic : Phaser.Sound;
 
-    constructor() {
-        super();
-    }
-
-    public Preload(phaserGame : Phaser.Game):void{
-        this.gameVar = phaserGame;
-        
+    constructor(pGame : Phaser.Game){
+        this.gameVar = pGame;
     }
 
     //add all audio files used in the game here
     public LoadInSounds():void{
-        this.gameVar.load.audio('Bos', "assets/audio/Bos.mp3");
-        this.gameVar.load.audio('Berg', "assets/audio/Berg.mp3");
-        this.gameVar.load.audio('Woestijn', "assets/audio/Woestijn.mp3");
+        this.gameVar.load.audio('Forest', "assets/audio/Bos.mp3");
+        this.gameVar.load.audio('Mountain', "assets/audio/Berg.mp3");
+        this.gameVar.load.audio('Desert', "assets/audio/Woestijn.mp3");
     }
-    
 
-    
-    public Update():void{
-        if(this.gameVar.input.activePointer.leftButton.isDown == true)
-        {
-            this.MusicSoundCase('Bos');
-        }
-        if(this.gameVar.input.activePointer.middleButton.isDown == true)
-        {
-            this.MusicSoundCase('Berg');
-        }
-        if(this.gameVar.input.activePointer.rightButton.isDown == true)
-        {
-            this.MusicSoundCase('Woestijn');
-        }
+    public create():void{
     }
 
     //adds and plays the music sound deleting the last played sound
@@ -76,17 +57,17 @@ export default class AudioManager extends Phaser.State{
 
         switch(this.MusicCaseString)
         {
-            case 'Bos':{
+            case 'Forest':{
                 this.MusicSongString = this.MusicCaseString.toString();
                 this.MusicPlaySounds();
                 break;
             }
-            case 'Berg':{
+            case 'Mountain':{
                 this.MusicSongString = this.MusicCaseString.toString();
                 this.MusicPlaySounds();
                 break;
             }
-            case 'Woestijn':{
+            case 'Desert':{
                 this.MusicSongString = this.MusicCaseString.toString();
                 this.MusicPlaySounds();
                 break;

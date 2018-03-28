@@ -6,6 +6,8 @@ import Tile from '../Tiles/Tile';
 import EventGenerator from '../Events/EventGenerator';
 import { Math } from 'phaser-ce';
 import Globals from '../States/Globals';
+import AudioManager from '../Audio/AudioManager'
+import Gameplay from '../States/Gameplay';
 
 export enum Biomes{
     forest = 0,
@@ -30,10 +32,14 @@ export default class TileGenerator{
     private nextBiome : Biomes;
     public uiButtonSwitchSignal : Phaser.Signal = new Phaser.Signal();
 
+    private audioManager : AudioManager;
+    public biomeSound : string = 'Forest';
+
     constructor(pGame : Phaser.Game){
         //create one tile to come after the titlescreen has passed
         this.gameVar = pGame;
         this.eventGenerator = new EventGenerator(this);
+        this.audioManager = new AudioManager(this.gameVar);
     }
 
     //load the sprites of the tiles and props related to them
@@ -74,12 +80,15 @@ export default class TileGenerator{
         switch(this.gameVar.rnd.integerInRange(0, 2)){
             case 0:
                 this.nextBiome = Biomes.forest;
+                this.biomeSound = 'Forest';
                 break;
             case 1:
                 this.nextBiome = Biomes.desert;
+                this.biomeSound = 'Desert';
                 break;
             case 2:
                 this.nextBiome = Biomes.mountain;
+                this.biomeSound = 'Mountain';
                 break;
         }
 
@@ -89,6 +98,7 @@ export default class TileGenerator{
         this.currentTile.event.completionSignal.addOnce(this.OnEventFinish, this, 0);
         this.currentTile.event.startSignal.addOnce(this.OnEventStart, this, 0);
         this.currentTile.offScreenSignal.addOnce(this.CreateTile, this, 0);
+        this.audioManager.MusicSoundCase(this.biomeSound);
     }
 
     private OnEventFinish(success : boolean):void{

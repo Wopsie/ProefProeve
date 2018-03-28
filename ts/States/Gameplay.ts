@@ -13,7 +13,7 @@ export default class Gameplay extends Phaser.State {
     private timer: Timer;
     private hero: Hero;
     //private playerAnim : Animation;
-    private audioManager: AudioManager;
+    public audioManager: AudioManager;
     
     public gameVar : Phaser.Game;
     private testEvent: EventTemplate;
@@ -33,8 +33,7 @@ export default class Gameplay extends Phaser.State {
         this.timer = new Timer(this.game);
         this.hero = new Hero(this.game);
         this.game.input.mouse.capture = true;
-        this.audioManager = new AudioManager();
-        this.audioManager.Preload(this.game);
+        this.audioManager = new AudioManager(this.game);
         this.audioManager.LoadInSounds();
         //instantiate classes
         this.tileGenerator = new TileGenerator(this.game);
@@ -48,6 +47,7 @@ export default class Gameplay extends Phaser.State {
         this.timer.Create();
         this.hero.Create();
         this.tileGenerator.Create();
+        this.audioManager.create();
         
         //this.UiSprites.create();
         this.tileGenerator.uiButtonSwitchSignal.add(this.UiSprites.ButtonSwitch, this.UiSprites, 0);
@@ -55,7 +55,6 @@ export default class Gameplay extends Phaser.State {
 
     public update(): void{
         super.update(this.game);
-        this.audioManager.Update();
         this.tileGenerator.Update();
     }
 
