@@ -3,6 +3,8 @@
 //the event itself is completely standalone
 import 'phaser-ce';
 import { EventTypes } from '../EventGenerator';
+import Animations from '../../Animations/Animations';
+
 export default interface iEvent{
     eventName : string;
     eventType : EventTypes;
@@ -10,6 +12,7 @@ export default interface iEvent{
     npcAssets : Phaser.Image; // for example a wolf spritesheet
     completionSignal? : Phaser.Signal;
     startSignal? : Phaser.Signal;
+    anim? : Animations;
 
     StartEvent():void;
     AgressiveAction():void;

@@ -1,7 +1,6 @@
 import 'phaser-ce';
 import { Sprite, Animation, AnimationManager } from 'phaser-ce';
 import Timer from '../Timer/Timer';
-import { NumericDictionary } from 'lodash';
 
 export default class Animations //extends Phaser.Animation
 {
@@ -40,7 +39,7 @@ export default class Animations //extends Phaser.Animation
         this.animArray[i].stop();
     }
 
-    private SearchKey(key: string): number 
+    public SearchKey(key: string): number 
     {
         for (let index = 0; index < this.spriteArray.length; index++) {
             if(this.spriteArray[index].key == key)

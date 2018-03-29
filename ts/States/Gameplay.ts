@@ -6,12 +6,15 @@ import TileGenerator from '../Tiles/TileGenerator';
 import Timer from '../Timer/Timer';
 import UiSprites from '../Events/Interface/UiSprites'
 import Globals from '../States/Globals';
+import Animations from '../Animations/Animations';
+
 export default class Gameplay extends Phaser.State {
     public static Name: string = 'gameplay';
     public name: string = Gameplay.Name;
     private _testSprite: Phaser.Sprite;
     private timer: Timer;
     private hero: Hero;
+    private anim : Animations;
     //private playerAnim : Animation;
     private audioManager: AudioManager;
     
@@ -30,23 +33,21 @@ export default class Gameplay extends Phaser.State {
 
     public preload(): void{
         super.preload(this.game);
-        this.timer = new Timer(this.game);
+        this.anim = new Animations(this.game);
+        this.timer = new Timer(this.game,this.anim);
         this.hero = new Hero(this.game);
         this.game.input.mouse.capture = true;
         this.audioManager = new AudioManager();
         this.audioManager.Preload(this.game);
         this.audioManager.LoadInSounds();
         //instantiate classes
-        this.tileGenerator = new TileGenerator(this.game);
+        this.tileGenerator = new TileGenerator(this.game,this.timer);
         this.UiSprites = new UiSprites(this.game, this.tileGenerator);
         //call methods that load assets
-        this.tileGenerator.LoadTileAssets();
     }
     
     public create(): void{
         super.create(this.game);
-        this.timer.Create();
-        this.hero.Create();
         this.tileGenerator.Create();
         
         //this.UiSprites.create();

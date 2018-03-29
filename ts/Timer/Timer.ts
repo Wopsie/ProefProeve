@@ -1,35 +1,38 @@
 import 'phaser-ce';
-import Animantions from "../Animations/Animations";
 import { Sprite } from 'phaser-ce';
+import Animations from '../Animations/Animations';
 
 export default class Timer
 {
     sprite: Phaser.Sprite;
-    private anim: Animantions;
+    private anim: Animations;
     public game: Phaser.Game;
 
-    constructor(game: Phaser.Game)
+    constructor(game: Phaser.Game, anim : Animations)
     {
         this.game = game;
-        this.anim = new Animantions(this.game);
-        this.anim.LoadSpritesheet('timer','assets/animations/spritesheet_Timer.png',545,965,24);
-        this.anim.LoadSpritesheet('hero','assets/sprites/spritesheet_hero_front.png',386,423,2);
-        this.anim.LoadSpritesheet('condor','assets/animations/CondorSpriteSheet.png',500,500,3);
-        this.anim.LoadSpritesheet('ogre','assets/animations/OgerSpriteSheet.png',500,500,3);
+        this.anim = anim;
+        this.anim.LoadSpritesheet('timer','assets/animations/TimerSpritesheet.png',545,965,24);
     }
 
     public Create(): void {
         this.anim.Create('timer',0.25,585,-50);
-        //this.anim.Create('condor',1,0,0,1,3);
     }
 
     public PlayTimer(AmountMS: number){
-        var fps = 24 / AmountMS;
-        this.anim.Play('timer',5,false,true);
+        var fps = 24 / (AmountMS / 1000);
+        this.anim.Play('timer',fps,false,false);
     }
 
-    public StopWatch(ms: number): void {
-        setTimeout(this.Stop,ms);
+    public StopTimer(): void 
+    {
+        this.anim.animArray[this.anim.SearchKey('timer')].stop();
+        this.anim.animArray.splice(this.anim.SearchKey('timer'),1);
+    }
+
+    public Wait(ms : number, func : Function): void
+    {
+        this.game.time.events.add(ms,func,this);
     }
 
     private Stop(): void

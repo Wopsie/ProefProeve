@@ -1,5 +1,6 @@
 import iEvent from '../Events/Interface/iEvent';
 import { EventTypes } from './EventGenerator';
+import Timer from '../Timer/Timer';
 
 export default class SandstormEvent implements iEvent{
     public eventType : EventTypes;
@@ -8,26 +9,27 @@ export default class SandstormEvent implements iEvent{
     public dialogue : JSON;
     public completionSignal : Phaser.Signal = new Phaser.Signal();
     public startSignal : Phaser.Signal = new Phaser.Signal();
+    private timer : Timer;
 
-    constructor(name : string = "Sandstorm"){
+    constructor(game : Phaser.Game,timer : Timer,name : string = "Sandstorm"){
         this.eventName = name;
         this.eventType = EventTypes.sandStorm;
         console.log("SANDSTORM");
-        //this.loadEventAssets();
-
-        //event assets are loaded into memory by the event generator
-        //to be used by all the events when its done
+        this.timer = timer;
     }
 
     StartEvent():void{
         //start checking for inputs
         this.startSignal.dispatch(true);
+        this.timer.Create();
+        this.timer.PlayTimer(2500);
         console.log(this.eventName + " STARTING NOW");
         
     }
 
     AgressiveAction():void{
         console.log(this.eventName + " agressive action");
+        this.timer.StopTimer();
         this.Success();
     }
 
@@ -38,6 +40,7 @@ export default class SandstormEvent implements iEvent{
 
     PassiveAction():void{
         console.log(this.eventName + " avoid action");
+        this.timer.StopTimer();
         this.Success();
     }
 

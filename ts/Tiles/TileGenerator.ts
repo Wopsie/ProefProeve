@@ -6,6 +6,7 @@ import Tile from '../Tiles/Tile';
 import EventGenerator from '../Events/EventGenerator';
 import { Math } from 'phaser-ce';
 import Globals from '../States/Globals';
+import Timer from '../Timer/Timer';
 
 export enum Biomes{
     forest = 0,
@@ -30,10 +31,11 @@ export default class TileGenerator{
     private nextBiome : Biomes;
     public uiButtonSwitchSignal : Phaser.Signal = new Phaser.Signal();
 
-    constructor(pGame : Phaser.Game){
+    constructor(pGame : Phaser.Game, timer : Timer){
         //create one tile to come after the titlescreen has passed
         this.gameVar = pGame;
-        this.eventGenerator = new EventGenerator(this);
+        this.eventGenerator = new EventGenerator(this.gameVar,this,timer);
+        this.LoadTileAssets();
     }
 
     //load the sprites of the tiles and props related to them
@@ -55,7 +57,7 @@ export default class TileGenerator{
     //Create the first tile after the game starts
     public Create():void{
         //create the very first tile that gets shown
-        this.currentTile = new Tile(this.gameVar, Biomes.forest);
+        this.currentTile = new Tile(this.gameVar, Biomes.desert);
         this.currentTile.event = this.eventGenerator.CreateEvent();
         //this is for when a choice is made
         this.currentTile.event.completionSignal.addOnce(this.OnEventFinish, this, 0);

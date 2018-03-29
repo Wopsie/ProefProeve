@@ -1,5 +1,7 @@
 import iEvent from '../Events/Interface/iEvent';
 import { EventTypes } from './EventGenerator';
+import Animations from '../Animations/Animations';
+import Timer from '../Timer/Timer';
 
 export default class QuicksandEvent implements iEvent{
     public eventType : EventTypes;
@@ -8,26 +10,30 @@ export default class QuicksandEvent implements iEvent{
     public dialogue : JSON;
     public completionSignal : Phaser.Signal = new Phaser.Signal();
     public startSignal : Phaser.Signal = new Phaser.Signal();
+    private timer : Timer;
 
-    constructor(name : string = "Quicksand"){
+    constructor(game : Phaser.Game,timer : Timer,name : string = "Quicksand"){
         this.eventName = name;
         this.eventType = EventTypes.quickSand;
         console.log("QUICKSAND");
         //this.loadEventAssets();
-
+        this.timer = timer;
         //event assets are loaded into memory by the event generator
         //to be used by all the events when its done
     }
 
     StartEvent():void{
         //start checking for inputs
-        this.startSignal.dispatch(true);
+        this.startSignal.dispatch(true); 
+        this.timer.Create();
+        this.timer.PlayTimer(2500);       
         console.log(this.eventName + " STARTING NOW");
         
     }
 
     AgressiveAction():void{
         console.log(this.eventName + " agressive action");
+        this.timer.StopTimer();
         this.Success();
     }
 
@@ -38,6 +44,7 @@ export default class QuicksandEvent implements iEvent{
 
     PassiveAction():void{
         console.log(this.eventName + " avoid action");
+        this.timer.StopTimer();
         this.Success();
     }
 

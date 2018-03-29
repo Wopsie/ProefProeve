@@ -11,6 +11,9 @@ import LightningStormEvent from '../Events/LightningStormEvent';
 import SandstormEvent from '../Events/SandStormEvent';
 import NarrowPathEvent from '../Events/NarrowPathEvent';
 import TileGenerator, { Biomes } from '../Tiles/TileGenerator';
+import Animations from '../Animations/Animations';
+import Timer from '../Timer/Timer';
+import { Game } from 'phaser-ce';
 
 export enum EventTypes{
     wolfAttack = 0,     //forest
@@ -26,14 +29,20 @@ export enum EventTypes{
 
 export default class EventGenerator{
     private gameVar : Phaser.Game;
+    private anim : Animations;
+    private timer : Timer;
     private currentEvent : iEvent;
     private lastEvent : iEvent;
     private tileGenerator : TileGenerator;
     private availableTypes : number[];
     private selectedEvent : number;
 
-    constructor(tileGen : TileGenerator){
+    constructor(gameVar : Phaser.Game,tileGen : TileGenerator,timer : Timer){
+        this.gameVar = gameVar;
+        this.timer = timer;
         this.tileGenerator = tileGen;
+        this.anim = new Animations(gameVar);
+        this.LoadEventAssets();
     }
 
     public CreateEvent():iEvent{
@@ -82,6 +91,7 @@ export default class EventGenerator{
         let e = this.selectEvent(this.availableTypes);
         //store the previous event so it cant be repeated
         this.lastEvent = e;
+
         return e;
     }
 
@@ -95,30 +105,31 @@ export default class EventGenerator{
 
         switch(this.selectedEvent){
             case 0:
-                return new WolfAttackEvent();
+                return new WolfAttackEvent(this.gameVar,this.timer);
             case 1:
-                return new CondorAttackEvent();
+                return new CondorAttackEvent(this.gameVar,this.timer);
             case 2:
-                return new BearAttackEvent();
+                return new BearAttackEvent(this.gameVar,this.timer);
             case 3:
-                return new OgreAttackEvent();
+                return new OgreAttackEvent(this.gameVar,this.timer);
             case 4:
-                return new QuicksandEvent();
+                return new QuicksandEvent(this.gameVar,this.timer);
             case 5:
-                return new AvalangeEvent();
+                return new AvalangeEvent(this.gameVar,this.timer);
             case 6: 
-                return new LightningStormEvent();
+                return new LightningStormEvent(this.gameVar,this.timer);
             case 7:
-                return new SandstormEvent();
+                return new SandstormEvent(this.gameVar,this.timer);
             case 8:
-                return new NarrowPathEvent();
+                return new NarrowPathEvent(this.gameVar,this.timer);
         }
     }
 
     //load the spritesheets and sprites of the enemies that can appear in events
     private LoadEventAssets():void{
-        this.gameVar.load.image('wolfEnemy', '../../assets/sprites/WolfEnemy.png');
-        this.gameVar.load.image('condorEnemy', '../../assets/sprites/CondorEnemy.png');
+        this.anim.LoadSpritesheet('wolf','assets/animations/WolfSpritesheet.png',500,500,3);
+        this.anim.LoadSpritesheet('ogre','assets/animations/OgreSpritesheet.png',500,500,3);
+        this.anim.LoadSpritesheet('condor','assets/animations/CondorSpritesheet.png',500,500,3);        
     }
 
     public GetTileGenerator():TileGenerator{ return this.tileGenerator; }

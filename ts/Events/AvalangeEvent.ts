@@ -1,5 +1,6 @@
 import iEvent from '../Events/Interface/iEvent';
 import { EventTypes } from './EventGenerator';
+import Timer from '../Timer/Timer';
 
 export default class AvalangeEvent implements iEvent{
     public eventType : EventTypes;
@@ -8,10 +9,12 @@ export default class AvalangeEvent implements iEvent{
     public dialogue : JSON;
     public completionSignal : Phaser.Signal = new Phaser.Signal();
     public startSignal : Phaser.Signal = new Phaser.Signal();
+    private timer : Timer;
     
-    constructor(name : string = "Avalange"){
+    constructor(game : Phaser.Game,timer : Timer,name : string = "Avalange"){
         this.eventName = name;
         this.eventType = EventTypes.avalange;
+        this.timer = timer;
         console.log("AVALANGE");
         //this.loadEventAssets();
 
@@ -22,12 +25,15 @@ export default class AvalangeEvent implements iEvent{
     StartEvent():void{
         //start checking for inputs
         this.startSignal.dispatch(true);//turn on buttons
+        this.timer.Create();
+        this.timer.PlayTimer(2500);
         console.log(this.eventName + " STARTING NOW");
         
     }
 
     AgressiveAction():void{
         console.log(this.eventName + " agressive action");
+        this.timer.StopTimer();
         this.Success();
     }
 
@@ -38,6 +44,7 @@ export default class AvalangeEvent implements iEvent{
 
     PassiveAction():void{
         console.log(this.eventName + " avoid action");
+        this.timer.StopTimer();
         this.Success();
     }
 
